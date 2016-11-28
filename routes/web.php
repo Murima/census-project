@@ -16,3 +16,8 @@ Route::get('/', function () {
 });
 
 Route::post('/signup', 'UserController@signUp')->name('signup');
+
+Route::get( '/signin', 'UserController@signIn')->name('signin');
+
+Route::get('user/home', 'UserController@gethomePage');
+

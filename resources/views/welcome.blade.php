@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-<h2> Sign In </h2>
+<h2> Sign Up </h2>
     <div class="row">
 
         <div class="col-md-6">
@@ -36,6 +36,12 @@
                 <div class="form-group">
                     <label for="email"> Email</label>
                     <input class="form-control" name="email" type="text" id="email">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="Password"> Password</label>
+                    <input class="form-control" name="password" type="password" id="password">
 
                 </div>
 
