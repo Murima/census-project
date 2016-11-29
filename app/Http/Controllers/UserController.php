@@ -70,7 +70,7 @@ class UserController extends Controller
     }
 
     public function getDashboard() {
-        redirect('dashboard');
+        return view('dashboard');
 
     }
 }

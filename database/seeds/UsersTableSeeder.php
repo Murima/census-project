@@ -14,11 +14,17 @@ class UsersTableSeeder extends Seeder
         //seeding the users table used by sign up form
         DB::table('users')->insert([
 
-            'firstname'=> 'Admin',
+            array ('firstname'=> 'Admin',
             'lastname'=> 'test',
             'email'=> 'test@test.com',
             'password'=> bcrypt('test123'),
-            'county'=> 'Nairobi',
+            'county'=> 'Nairobi'),
+
+            array ('firstname'=> 'Murima',
+                'lastname'=> 'test',
+                'email'=> 'murima@gmail.com',
+                'password'=> bcrypt('test123'),
+                'county'=> 'Nairobi'),
 
         ]);
 

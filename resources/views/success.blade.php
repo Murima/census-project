@@ -1,2 +1,5 @@
 @extends('layouts.master')
-<h2> success !</h2>
+<div class="alert alert-success">
+
+    <strong>Success!</strong>
+</div>
