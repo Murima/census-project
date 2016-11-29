@@ -19,5 +19,5 @@ Route::post('/signup', 'UserController@signUp')->name('signup');
 
 Route::any( '/signin', 'UserController@signIn')->name('signin');
 
-Route::get('user/home', 'UserController@gethomePage');
+Route::get('user/dashboard', 'UserController@getDashboard')->name('dashboard');
 

@@ -12,10 +12,7 @@ class UserController extends Controller
 {
     //This is the user controller for users
 
-    public function gethomePage() {
-        redirect('dashboard');
 
-    }
 
     public function signUP( Request $request){
 
@@ -58,6 +55,7 @@ class UserController extends Controller
                 'password' => $request['password']
             );
 
+
             if (\Auth::attempt($credentials)) {
                 return redirect()->route('dashboard');
 
@@ -69,5 +67,10 @@ class UserController extends Controller
 
 
         return view("loginpage");
+    }
+
+    public function getDashboard() {
+        redirect('dashboard');
+
     }
 }
