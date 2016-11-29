@@ -19,11 +19,20 @@ class UserController extends Controller
 
     public function signUP( Request $request){
 
+        $this->validate($request, [
+            'firstname'=> 'required',
+            'lastname'=> 'required',
+            'email'=> 'required|unique',
+            'id'=> 'required',
+            'password'=> 'required'
+
+        ]);
+
         $firstname = $request['firstname'];
         $lastname = $request['lastname'];
         $id = $request['ID'];
         $email = $request['email'];
-        $password = $request['password'];
+        $password = bcrypt($request['password']);
         $county = $request['county'];
 
         $user = new User();
@@ -44,26 +53,18 @@ class UserController extends Controller
     public function signIn( Request $request){
 
         if ($request->isMethod('post')){
+            $credentials = array(
+                'email' => $request['email'],
+                'password' => $request['password']
+            );
 
-            $validator = \Validator::make($request['email'], $request['password'], array(
-                "username" => "required|min:4",
-                "password" => "required|min:6"
-            ));
-
-            if ($validator->passes()) {
-                $credentials = array(
-                    'email' => $request['email'],
-                    'password' => $request['password']
-                );
-
-
-                if (\Auth::attempt($credentials)) {
-                    return redirect()->route('dashboard');
-
-                }
+            if (\Auth::attempt($credentials)) {
+                return redirect()->route('dashboard');
 
             }
-            return redirect()->route('dashboard');
+
+
+            return redirect()->back();
         }
 
 
