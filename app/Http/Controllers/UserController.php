@@ -61,8 +61,7 @@ class UserController extends Controller
 
             }
 
-
-            return redirect()->back();
+            return redirect()->back()->with('errors',['Authentication failed please try again']);
         }
 
 

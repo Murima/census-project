@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="{{ URL::to('css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('css/skins/skin-purple.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +51,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
     <!-- header -->
 @include('includes.dashboard.dashboard-header')
@@ -98,7 +98,7 @@ desired effect
     <!-- jQuery 2.2.3 -->
     <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ URL::to('css/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js"></script>
 

@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<h2> Sign In</h2>
-@if (count ($errors)>0)
+    <h2> Sign In</h2>
+    @if (session('errors'))
 
-    <div class="alert alert-danger">
-<ul>
-    @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach(session('errors') as $error)
+                    <li>{{ $error }}</li>
 
-    @endforeach
-</ul>
+                @endforeach
+            </ul>
 
-    </div>
+        </div>
     @endif
 
     <div class="row">
@@ -39,4 +39,4 @@
         </div>
     </div>
 
-    @endsection
+@endsection
