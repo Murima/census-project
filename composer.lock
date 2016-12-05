@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a8d0b9588644ce1e2873374ceda26f0d",
-    "content-hash": "6373a4b08789e0ce8687424e4a9a56c0",
+    "hash": "e865d0a15e61cc7814378c1c053a0f11",
+    "content-hash": "e493d8c98f663f6feafbfb0db5242bf7",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -876,6 +876,52 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "jeroennoten/laravel-adminlte",
+            "version": "v1.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
+                "reference": "632b4ba36b6d7a3c9162ced4143ba6d8fb0b13d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/632b4ba36b6d7a3c9162ced4143ba6d8fb0b13d5",
+                "reference": "632b4ba36b6d7a3c9162ced4143ba6d8fb0b13d5",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JeroenNoten\\LaravelAdminLte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Noten",
+                    "email": "jeroennoten@me.com"
+                }
+            ],
+            "description": "Easy AdminLTE integration with Laravel",
+            "keywords": [
+                "AdminLTE",
+                "admin",
+                "administrator",
+                "laravel"
+            ],
+            "time": "2016-11-12 18:56:48"
         },
         {
             "name": "laravel/framework",

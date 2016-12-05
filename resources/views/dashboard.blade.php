@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="{{ URL::to('css/skins/skin-purple.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('css/skins/skin-red.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +51,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
     <!-- header -->
 @include('includes.dashboard.dashboard-header')
@@ -66,7 +66,7 @@ desired effect
         <section class="content-header">
             <h1>
                 Admin Dashboard
-                <small>Optional description</small>
+                <small>Control the census entities</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -78,7 +78,31 @@ desired effect
         <section class="content">
 
             <!-- Your Page Content Here -->
-            @yield('content')
+        @yield('content')
+        <!-- census event progress-->
+            <div class="col-md-3 col-sm-6 col-xs-12" style="float:right">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Census Events</span>
+                        <span class="info-box-number">0</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 1%"></div>
+                        </div>
+                        <span class="progress-description">
+                    70% Increase in 30 Days
+                  </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        <!-- /census event progress-->
+            
+
 
         </section>
         <!-- /.content -->
@@ -87,7 +111,7 @@ desired effect
 
 
     <!-- footer -->
-@include('includes.dashboard.dashboard-footer')
+    @include('includes.dashboard.dashboard-footer')
 
 </div>
 <!-- ./wrapper -->
@@ -95,16 +119,20 @@ desired effect
 
 <!-- REQUIRED JS SCRIPTS -->
 
-    <!-- jQuery 2.2.3 -->
-    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ URL::to('css/bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/app.min.js"></script>
+<!-- jQuery 2.2.3 -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+crossorigin="anonymous">
+</script>
+<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{ URL::to('css/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/app.min.js"></script>
 
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-         Both of these plugins are recommended to enhance the
-         user experience. Slimscroll is required when using the
-         fixed layout. -->
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
 </body>
 </html>
