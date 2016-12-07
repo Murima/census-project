@@ -14,10 +14,10 @@ class CreateCensusEventTable extends Migration
     public function up()
     {
         //
-        Schema::create('census_event', function (Blueprint $table){
-            $table->string('ID');
-            $table->string('census-name');
-            $table->string('date');
+        Schema::create('census_events', function (Blueprint $table){
+            $table->string('census_id');
+            $table->string('census_name');
+            $table->string('daterange');
             $table->rememberToken();
 
         });

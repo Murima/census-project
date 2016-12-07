@@ -98,7 +98,7 @@ desired effect
 
                     <div class="info-box-content">
                         <span class="info-box-text">Census Events</span>
-                        <span class="info-box-number">0</span>
+                        <span class="info-box-number">{{ $numberofEvents }}</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: 1%"></div>
@@ -115,8 +115,19 @@ desired effect
             <!-- /census event progress-->
 
             <!--create census event-->
+
             <div class="col-md-4">
-                <form action="" method="post">
+                <!--display success message-->
+                @foreach(['success'] as $msg)
+                    @if(Session::has('alert-').$msg)
+                        <div class="alert alert-{{ $msg }} alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <p > {{ Session::get('alert-' . $msg) }}</p>
+                        </div>
+                    @endif
+                @endforeach
+
+                <form action="{{route('create-census')}}" method="post">
                     <div class="form-group">
                         <label for="censusID"> CensusID</label>
                         <input class="form-control" name="censusID" type="text" id="censusID">
