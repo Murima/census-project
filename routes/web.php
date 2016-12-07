@@ -21,3 +21,4 @@ Route::any( '/signin', 'UserController@signIn')->name('signin');
 
 Route::get('user/dashboard', 'UserController@getDashboard')->name('dashboard');
 
+

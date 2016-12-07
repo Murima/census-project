@@ -30,6 +30,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+{{--
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+--}}
+
+<!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -100,8 +112,51 @@ desired effect
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
-        <!-- /census event progress-->
-            
+            <!-- /census event progress-->
+
+            <!--create census event-->
+            <div class="col-md-4">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="censusID"> CensusID</label>
+                        <input class="form-control" name="censusID" type="text" id="censusID">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="daterange"> Date Range</label>
+                        <input class="form-control" name="daterange" type="text" id="daterange">
+
+                    </div>
+
+                    <!--attach javascript to the html element-->
+                    <script type="text/javascript">
+                        $('input[name="daterange"]').daterangepicker(
+                            {
+                                locale: {
+                                    format: 'DD-MM-YYYY'
+                                },
+                                startDate: '01-01-2009',
+                                endDate: '30-01-2009'
+                            },
+                            <!--callback function to submit to get values-->
+                            function(start, end, label) {
+
+                                $('#daterange').val(start.format('DD-MM-YYY'))
+                            });
+                    </script>
+
+                    <div class="form-group">
+                        <label for="censusName"> Census Name</label>
+                        <input class="form-control" name="censusName" type="text" id="censusName">
+
+                    </div>
+
+                    <button type="submit" class="btn-primary"> Submit </button>
+                    <input type="hidden" name="_token" value="{{ Session::token() }}">
+
+                </form>
+            </div>
 
 
         </section>
@@ -121,8 +176,8 @@ desired effect
 
 <!-- jQuery 2.2.3 -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-crossorigin="anonymous">
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
 </script>
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
