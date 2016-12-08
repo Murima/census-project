@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,7 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        
+        'JWTAuth'   => Tymon\JWTAuthFacades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
 
     ],
 
