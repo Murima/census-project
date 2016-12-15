@@ -19,6 +19,7 @@ class AuthenticateController extends Controller
         // except for the authenticate method. We don't want to prevent
         // the user from retrieving their token if they don't already have it
 
+
         $this->middleware('jwt.auth', ['except'=>['authenticateEnumerator']]);
     }
 
@@ -30,6 +31,7 @@ class AuthenticateController extends Controller
 
     public function authenticateEnumerator(Request $request){
 //authenticate the enumerator
+        /*TODO ensure only enumerators log in with api*/
 
         $credentials = $request->only('email', 'password');
         try {
