@@ -6,11 +6,12 @@ use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
 {
-    //This is the user controller for users
+    //This is the user controller class for users
 
 
 
@@ -68,8 +69,113 @@ class UserController extends Controller
         return view("loginpage");
     }
 
+
     public function getDashboard() {
         return view('dashboard');
 
     }
+
+    public function signUpOfficial (Request $request)
+    {
+        if ($request->isMethod('post'))
+        {
+            $this->validate($request, [
+                'firstname'=> 'required',
+                'lastname'=> 'required',
+                'email'=> 'required|unique:users',
+                'id'=> 'unique:users|min:6',
+                'password'=> 'required'
+
+            ]);
+
+            $firstname = $request['firstname'];
+            $lastname = $request['lastname'];
+            $id = $request['ID'];
+            $email = $request['email'];
+            $password = bcrypt($request['password']);
+            $county = $request['county'];
+
+            $file = $request->file('image');
+            $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
+
+            if ($file)
+            {
+                Storage::disk('local')->put($filename, File::get($file));
+            }
+
+            $user = new User();
+
+            $user->firstname = $firstname;
+            $user-> lastname = $lastname;
+            $user-> id = $id;
+            $user-> email = $email;
+            $user-> password= $password;
+            $user-> county = $county;
+
+
+            $user->save();
+
+            $request->session()->flash('alert-success','User successfully added!');
+            return redirect()->route('register-official');
+
+        }
+        return view('register-official');
+    }
+
+    public function signUpEnumerator( Request $request)
+    {
+        $is_enumerator = 1;
+
+        $this->validate($request, [
+            'firstname'=> 'required',
+            'lastname'=> 'required',
+            'email'=> 'required|unique:users',
+            'id'=> 'unique:users|min:6',
+            'password'=> 'required'
+
+        ]);
+
+        $firstname = $request['firstname'];
+        $lastname = $request['lastname'];
+        $id = $request['ID'];
+        $email = $request['email'];
+        $password = bcrypt($request['password']);
+        $county = $request['county'];
+
+        $phone_number = $request->get('phone_number');
+        $headoffice = $request->get('headoffice');
+        $reportsto = $request->get('reportsto');
+        $supervisor_phone = $request->get('supervisor_phone');
+
+        $file = $request->file('image');
+        $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
+
+        if ($file)
+        {
+            Storage::disk('local')->put($filename, File::get($file));
+        }
+
+        $user = new User();
+
+        $user->firstname = $firstname;
+        $user-> lastname = $lastname;
+        $user-> id = $id;
+        $user-> email = $email;
+        $user-> password= $password;
+        $user-> county = $county;
+
+        $user->is_enumerator = $is_enumerator;
+        $user->phone_number = $phone_number;
+        $user->headoffice = $headoffice;
+        $user->reportsto = $reportsto;
+        $user->supervisor_phone = $supervisor_phone;
+
+
+
+        $user->save();
+
+        $request->session()->flash('alert-success','Enumerator successfully added!');
+        return redirect()->route('register-enumerator');
+    }
+
 }

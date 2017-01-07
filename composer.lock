@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fcaac56906f6515ccf0652d844956d7b",
-    "content-hash": "16c015801334f06f7c3254084b614816",
+    "hash": "47b676ed5710aa9925aeffe4ad29bffb",
+    "content-hash": "9b407f6ba56478399845346103f380e5",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1104,6 +1104,57 @@
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "http://laravelcollective.com",
             "time": "2016-08-27 23:52:43"
+        },
+        {
+            "name": "laravelista/ekko",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravelista/Ekko.git",
+                "reference": "8fdc10ccf6c9dd778bb316cf4ba80be259057c8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravelista/Ekko/zipball/8fdc10ccf6c9dd778bb316cf4ba80be259057c8f",
+                "reference": "8fdc10ccf6c9dd778bb316cf4ba80be259057c8f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "~4.0|~5.0",
+                "illuminate/support": "~4.0|~5.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Laravelista\\Ekko\\": "src/"
+                },
+                "files": [
+                    "src/Laravelista/Ekko/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Bašić",
+                    "email": "mario.basic@outlook.com"
+                }
+            ],
+            "description": "Laravel helper for detecting active navigation menu items and applying bootstrap classes.",
+            "keywords": [
+                "bootstrap",
+                "helper",
+                "laravel",
+                "navigation"
+            ],
+            "time": "2016-11-21 09:12:47"
         },
         {
             "name": "league/flysystem",

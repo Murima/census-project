@@ -31,16 +31,5 @@ class RegistrationController extends Controller
         return \View::make('dashboard')->with(compact('numbEvents'));
     }
 
-    public function getRegisterForm()
-    {
-        //get registration page
-
-        return \View::make('register_official');
-    }
-
-    public function registerOfficial()
-    {
-
-    }
 }
 

@@ -167,6 +167,7 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Watson\BootstrapForm\BootstrapFormServiceProvider::class,
+        Laravelista\Ekko\EkkoServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -236,6 +237,7 @@ return [
         'Form'     => Collective\Html\FormFacade::class,
         'HTML'     => Collective\Html\HtmlFacade::class,
         'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
+        'Ekko' => Laravelista\Ekko\Facades\Ekko::class,
 
     ],
 

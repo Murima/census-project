@@ -21,8 +21,16 @@ Route::any( '/signin', 'UserController@signIn')->name('signin');
 
 Route::get('user/dashboard', 'UserController@getDashboard')->name('dashboard');
 
+Route::get( 'admin/create-census', ['as'=> 'create-census', function (){
+    return View::make('dashboard');
+}]);
+
 Route::post('admin/create-census', 'RegistrationController@createEvent')->name('create-census');
 
-Route::get('admin/register-official', 'RegistrationController@getRegisterForm');
-Route::post('admin/register-official/register', 'RegistrationController@registerOfficial');
+Route::any ('admin/register-official', 'UserController@signUpOfficial')->name('register-official');
 
+Route::get('admin/register-enumerator', ['as'=> 'register-enumerator', function (){
+    return View::make('register-enumerator');
+}]);
+
+Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->name('register-enumerator');

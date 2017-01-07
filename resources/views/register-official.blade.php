@@ -22,7 +22,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+    <script  src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js')  }}" ></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"> </script>
+
     <link rel="stylesheet" href="{{ URL::to('css/skins/skin-red.css') }}">
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -78,7 +87,7 @@ desired effect
         <section class="content-header">
             <h1>
                 Admin Dashboard
-                <small>Control the census entities</small>
+                <small>Register Census Officials</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -87,26 +96,98 @@ desired effect
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="min-height: 600px" >
 
             <!-- Your Page Content Here -->
         @yield('content')
 
+        <!-- Registered users widget -->
+            <div class="col-lg-3 col-xs-6" style="float:right">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>44</h3>
 
-        <!--Register official-->
-            <div class="col-md-4">
-            BootForm::open(['model' => $user, 'store' => 'UsersController@registerOfficial'])
-            BootForm::text('officialID');
-            BootForm:text('first_Name');
-            BootForm:text('last_Name');
-            BootForm:text('county');
-            BootForm:email();
-            BootForm:submit('Save');
-            BootForm:close();
+                        <p>User Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <!-- /Registered users widget -->
+
+            <!--Register official-->
+            <div class="col-md-6">
+                <!--display success message-->
+                @if(Session::has('alert-success'))
+                    @foreach(['success'] as $msg)
+                        @if(Session::has('alert-').$msg)
+                            <div class="alert alert-{{ $msg }} alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <p > {{ Session::get('alert-' . $msg) }}</p>
+                            </div>
+                        @endif
+                    @endforeach
+
+                @endif
+
+                <form action="{{ route('register-official') }} " method="post" enctype="multipart/form-data">
+
+                    <div class="form-group" {{ $errors->has('firstname') ? 'has-error':'' }}>
+                        <label for="firstname"> First Name</label>
+                        <input class="form-control" name="firstname" type="text" id="firstname">
+
+                    </div>
+
+                    <div class="form-group" {{ $errors->has('lastname') ? 'has-error':'' }}>
+                        <label for="lastname"> Last Name</label>
+                        <input class="form-control" name="lastname" type="text" id="lastname">
+
+                    </div>
+
+                    <div class="form-group" {{ $errors->has('ID') ? 'has-error':'' }}>
+                        <label for="ID"> ID</label>
+                        <input class="form-control" name="ID" type="text" id="ID">
+
+                    </div>
+
+                    <div class="form-group" {{ $errors->has('email') ? 'has-error':'' }}>
+                        <label for="email"> Email</label>
+                        <input class="form-control" name="email"  type="text" placeholder="email"  id="email"
+                               aria-describedby="basic-addon1">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password"> Password</label>
+                        <input class="form-control" name="password" type="password" id="password">
+
+                    </div>
+
+                    <div class="form-group" {{ $errors->has('county') ? 'has-error':'' }}>
+                        <label for="county"> County</label>
+                        <input class="form-control" name="county" type="text" id="county">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image (only .jpg)</label>
+                        <input type="file" name="image" class="form-controol" id="image">
+
+                    </div>
+
+                    <button type="submit" class="btn-primary"> Submit </button>
+                    <input type="hidden" name="_token" value="{{ Session::token() }}">
+
+                </form>
+
             </div>
             <!--/Register official-->
-
-
 
 
 

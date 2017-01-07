@@ -20,6 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('county');
+            //only specific to enumerators
+
+            $table->boolean('is_enumerator')->nullable()->default(NULL);;
+            $table->string('phone_number')->nullable()->default(NULL);;
+            $table->string('headoffice')->nullable()->default(NULL);;
+            $table->string('reportsto')->nullable()->default(NULL);;
+            $table->string('supervisor_phone')->nullable()->default(NULL);;
+
             $table->rememberToken();
             $table->timestamps();
         });
