@@ -21,7 +21,8 @@ Route::any( '/signin', 'UserController@signIn')->name('signin');
 
 Route::get('user/dashboard', 'UserController@getDashboard')->name('dashboard');
 
-Route::post('admin/create-census', 'CensusEventController@createEvent')->name('create-census');
+Route::post('admin/create-census', 'RegistrationController@createEvent')->name('create-census');
 
-
+Route::get('admin/register-official', 'RegistrationController@getRegisterForm');
+Route::post('admin/register-official/register', 'RegistrationController@registerOfficial');
 

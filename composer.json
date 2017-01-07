@@ -12,7 +12,8 @@
         "laravelcollective/html": "^5.3",
         "barryvdh/laravel-debugbar": "^2.3",
         "jeroennoten/laravel-adminlte": "^1.17",
-        "tymon/jwt-auth": "^0.5.9"
+        "tymon/jwt-auth": "^0.5.9",
+        "watson/bootstrap-form": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

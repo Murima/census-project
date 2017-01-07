@@ -22,16 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <script  src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js')  }}" ></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"> </script>
-
     <link rel="stylesheet" href="{{ URL::to('css/skins/skin-red.css') }}">
-    <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -100,91 +91,23 @@ desired effect
 
             <!-- Your Page Content Here -->
         @yield('content')
-        <!-- census event progress-->
-            <div class="col-md-3 col-sm-6 col-xs-12" style="float:right">
-                <div class="info-box bg-yellow">
-                    <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">Census Events</span>
-                        <span class="info-box-number">
-                            @if(isset($numbEvents))
-                                <p>{{ $numbEvents }}</p>
-                            @endif
 
-                        </span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 1%"></div>
-                        </div>
-                        <span class="progress-description">
-
-                  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <!-- /census event progress-->
-
-            <!--create census event-->
-
+        <!--Register official-->
             <div class="col-md-4">
-                <!--display success message-->
-                @if(Session::has('alert-success'))
-                    @foreach(['success'] as $msg)
-                        @if(Session::has('alert-').$msg)
-                            <div class="alert alert-{{ $msg }} alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <p > {{ Session::get('alert-' . $msg) }}</p>
-                            </div>
-                        @endif
-                    @endforeach
-
-                @endif
-
-                <form action="{{route('create-census')}}" method="post">
-                    <div class="form-group">
-                        <label for="censusID"> CensusID</label>
-                        <input class="form-control" name="censusID" type="text" id="censusID">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="daterange"> Date Range</label>
-                        <input class="form-control" name="daterange" type="text" id="daterange">
-
-                    </div>
-
-                    <!--attach javascript to the html element-->
-                    <script type="text/javascript">
-                        $('input[name="daterange"]').daterangepicker(
-                            {
-                                locale: {
-                                    format: 'DD-MM-YYYY'
-                                },
-                                startDate: '01-01-2009',
-                                endDate: '30-01-2009'
-                            },
-                            <!--callback function to submit to get values-->
-                            function(start, end, label) {
-
-                                $('#daterange').val(start.format('DD-MM-YYY'))
-                            });
-                    </script>
-
-                    <div class="form-group">
-                        <label for="censusName"> Census Name</label>
-                        <input class="form-control" name="censusName" type="text" id="censusName">
-
-                    </div>
-
-                    <button type="submit" class="btn-primary"> Submit </button>
-                    <input type="hidden" name="_token" value="{{ Session::token() }}">
-
-                </form>
+            BootForm::open(['model' => $user, 'store' => 'UsersController@registerOfficial'])
+            BootForm::text('officialID');
+            BootForm:text('first_Name');
+            BootForm:text('last_Name');
+            BootForm:text('county');
+            BootForm:email();
+            BootForm:submit('Save');
+            BootForm:close();
             </div>
+            <!--/Register official-->
+
+
+
 
 
         </section>
