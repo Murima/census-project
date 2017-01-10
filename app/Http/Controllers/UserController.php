@@ -55,11 +55,18 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'password' => $request['password']
             );
+            $user = User::where('email',$request->get('email'))->first();
+            if($user->is_admin == 1) {
+                if (\Auth::attempt($credentials)) {
+                    return redirect()->route('dashboard');
 
+                }
+            }
 
-            if (\Auth::attempt($credentials)) {
-                return redirect()->route('dashboard');
-
+            elseif($user->is_official == 1) {
+                if (\Auth::attempt($credentials)) {
+                    return redirect()->route('dashboard-official');
+                }
             }
 
             return redirect()->back()->with('errors',['Authentication failed please try again']);

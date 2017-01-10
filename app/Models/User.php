@@ -30,6 +30,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property boolean $is_enumerator
+ * @property boolean $is_official
+ * @property boolean $is_admin
+ * @property string $phone_number
+ * @property string $headoffice
+ * @property string $reportsto
+ * @property string $supervisor_phone
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsEnumerator($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsOfficial($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsAdmin($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePhoneNumber($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereHeadoffice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereReportsto($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereSupervisorPhone($value)
  */
 class User extends Authenticatable
 {
