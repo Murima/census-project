@@ -166,6 +166,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Watson\BootstrapForm\BootstrapFormServiceProvider::class,
         Laravelista\Ekko\EkkoServiceProvider::class,
 

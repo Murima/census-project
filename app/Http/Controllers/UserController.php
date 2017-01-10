@@ -61,6 +61,7 @@ class UserController extends Controller
                     return redirect()->route('dashboard');
 
                 }
+
             }
 
             elseif($user->is_official == 1) {
@@ -68,12 +69,16 @@ class UserController extends Controller
                     return redirect()->route('dashboard-official');
                 }
             }
+            elseif ($user==null){
+                return redirect()->back()->with('errors',['Authentication failed please try again']);
+            }
+
 
             return redirect()->back()->with('errors',['Authentication failed please try again']);
         }
 
 
-        return view("loginpage");
+        return view("auth.login");
     }
 
 
