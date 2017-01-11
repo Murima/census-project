@@ -19,3 +19,5 @@ Route::get('/user', function (Request $request) {
 
 Route::resource('authenticate', 'Api\AuthenticateController', ['only' => ['index']]);
 Route::post('authenticate', 'Api\AuthenticateController@authenticateEnumerator');
+
+Route::get('user-details/{email}', 'Api\AccountDetailsController@getDetails');

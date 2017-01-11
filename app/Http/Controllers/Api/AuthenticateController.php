@@ -30,7 +30,7 @@ class AuthenticateController extends Controller
     }
 
     public function authenticateEnumerator(Request $request){
-//authenticate the enumerator
+         //authenticate the enumerator
         /*TODO ensure only enumerators log in with api*/
 
         $credentials = $request->only('email', 'password');
