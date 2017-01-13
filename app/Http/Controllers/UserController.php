@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
@@ -119,6 +120,7 @@ class UserController extends Controller
 
             $user->firstname = $firstname;
             $user-> lastname = $lastname;
+            $user->is_official=1;
             $user-> id = $id;
             $user-> email = $email;
             $user-> password= $password;
@@ -128,7 +130,12 @@ class UserController extends Controller
             $user->save();
 
             $request->session()->flash('alert-success','User successfully added!');
-            return redirect()->route('register-official');
+
+            $user = User::where('is_official',1)->count();
+
+            return \View::make('register-official')->with(compact('user'));
+
+            //return redirect()->route('register-official');
 
         }
         return view('register-official');
@@ -187,7 +194,9 @@ class UserController extends Controller
         $user->save();
 
         $request->session()->flash('alert-success','Enumerator successfully added!');
-        return redirect()->route('register-enumerator');
+        $user = User::where('is_official',1)->count();
+
+        return \View::make('register-enumerator')->with(compact('user'));
     }
 
 }

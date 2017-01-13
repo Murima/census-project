@@ -101,14 +101,18 @@ desired effect
             <!-- Your Page Content Here -->
         @yield('content')
 
+
         <!-- Registered users widget -->
             <div class="col-lg-3 col-xs-6" style="float:right">
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3></h3>
+                        @if(isset($user))
+                            <h3>{{ $user }}</h3>
+                        @endif
 
-                        <p>User Registrations</p>
+                        <p>Enuerator Registrations</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -122,6 +126,23 @@ desired effect
             <!-- /Registered users widget -->
 
             <!--Register official-->
+            @if(count($errors)>0)
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <ul>
+                            @foreach( $errors->all() as $error)
+                                <li class="text-danger">
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            @endif
+
             <div class="col-md-6">
                 <!--display success message-->
                 @if(Session::has('alert-success'))

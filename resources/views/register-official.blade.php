@@ -106,7 +106,10 @@ desired effect
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3></h3>
+                        @if(isset($user))
+                            <h3>{{ $user }}</h3>
+                        @endif
 
                         <p>User Registrations</p>
                     </div>
@@ -122,6 +125,24 @@ desired effect
             <!-- /Registered users widget -->
 
             <!--Register official-->
+
+            @if(count($errors)>0)
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <ul>
+                            @foreach( $errors->all() as $error)
+                                <li class="text-danger">
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            @endif
+
             <div class="col-md-6">
                 <!--display success message-->
                 @if(Session::has('alert-success'))

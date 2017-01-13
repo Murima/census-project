@@ -35,6 +35,7 @@ Route::get('admin/register-enumerator', ['as'=> 'register-enumerator', function 
 
 Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->name('register-enumerator');
 
+
 Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
     return View::make('dashboard-official');
 }]);
