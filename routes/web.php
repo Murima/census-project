@@ -35,7 +35,19 @@ Route::get('admin/register-enumerator', ['as'=> 'register-enumerator', function 
 
 Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->name('register-enumerator');
 
+Route::get('user/image/{filename}', 'UserController@getUserImage')->name('user-image');
 
 Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
     return View::make('dashboard-official');
 }]);
+
+Route::get('official/search-user', ['as'=> 'official/search-user', function(){
+    return View::make('dashboard-official-search');
+}]);
+
+Route::post('official/search-user', 'TaskListController@searchUser');
+
+Route::get('official/search-user/assign-task/{id}', 'TaskListController@getTaskForm')->name('assign-task');
+Route::post('official/search-user/assign-task/{id}', 'TaskListController@assignTask')->name('assign-task');
+
+Route::any('official/search-user/edit-task/{id}', 'TaskListController@editTask')->name('edit-task');

@@ -23,7 +23,8 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => '',
                 'headoffice' => '',
                 'reportsto' => '',
-                'supervisor_phone' => ''),
+                'supervisor_phone' => '',
+                'ward'=>''),
 
             array ('firstname'=> 'Murima',
                 'lastname'=> 'test',
@@ -34,7 +35,8 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => '',
                 'headoffice' => '',
                 'reportsto' => '',
-                'supervisor_phone' => ''),
+                'supervisor_phone' => '',
+                'ward'=>''),
 
             array ('firstname'=> 'Enumerator',
                 'lastname'=> 'Macharia',
@@ -45,7 +47,8 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => '0723563998',
                 'headoffice' => 'Nairobi',
                 'reportsto' => 'Mr Kimathi',
-                'supervisor_phone' => '0738665450'),
+                'supervisor_phone' => '0738665450',
+                'ward'=>'Nairobi West'),
         ]);
 
     }

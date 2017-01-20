@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('headoffice')->nullable()->default(NULL);
             $table->string('reportsto')->nullable()->default(NULL);
             $table->string('supervisor_phone')->nullable()->default(NULL);
+            $table->string('ward')->nullable()->default(NULL);
 
             $table->rememberToken();
             $table->timestamps();

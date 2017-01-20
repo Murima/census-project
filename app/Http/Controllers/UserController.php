@@ -7,6 +7,7 @@ use App\Providers\AuthServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -197,6 +198,12 @@ class UserController extends Controller
         $user = User::where('is_official',1)->count();
 
         return \View::make('register-enumerator')->with(compact('user'));
+    }
+
+    public function getUserImage($filename){
+        $file = Storage::disk('local')->get($filename);
+
+        return new Response($file, 200);
     }
 
 }

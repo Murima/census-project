@@ -32,7 +32,7 @@ return [
 
     'logo' => '<b>KNBS</b> Census 2019',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>KNBS</b>LT',
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +124,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Create Task List',
-                    'url'  => '#',
+                    'route'  => 'official/search-user',
                     'icon'    => 'tasks',
                 ],
                 [
