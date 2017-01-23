@@ -86,27 +86,54 @@
 
                 @endif
 
-                    {{ Form::model($task, array('route' => array('task.editTask', $user->id), 'method' => 'PUT',
-				'id' => 'patient_number')) }}
-                    <div class="form-group">
-                        {{ Form::label('Task ID') }}
-                        {{ Form::text('patient_number', Input::old('task_id'),
-                            array('class' => 'form-control', 'readonly')) }}
-                    </div>
-                    {{ Form::close() }}
-            {{--<form action="{{route('edit-task',[$user->id])}}" method="post">
+                {{-- {{ Form::model($task, array('route' => array('edit-task', $user->id), 'method' => 'PUT',
+             'id' => 'form-edit-task')) }}
+                 <div class="form-group">
+                     {{ Form::label('Task ID') }}
+                     {{ Form::text('patient_number', Input::old('task_id'),
+                         array('class' => 'form-control', 'readonly')) }}
+                 </div>
+                 <div class="form-group">
+                     {{ Form::label('Enumerator ID') }}
+                     {{ Form::text('patient_number', Input::old('task_id'),
+                         array('class' => 'form-control')) }}
+                 </div>
+
+                 <div class="form-group">
+                     {{ Form::label('Location') }}
+                     {{ Form::text('patient_number', Input::old('task_id'),
+                         array('class' => 'form-control', 'readonly')) }}
+                 </div>
+                 <div class="form-group">
+                     {{ Form::label('Duration') }}
+                     {{ Form::text('patient_number', Input::old('task_id'),
+                         array('class' => 'form-control', 'readonly')) }}
+                 </div>
+                 <div class="form-group">
+                     {{ Form::label('Status') }}
+                     {{ Form::text('patient_number', Input::old('task_id'),
+                         array('class' => 'form-control', 'readonly')) }}
+                 </div>
+
+                 {{ Form::close() }}--}}
+
+                {{--<form action="{{route('edit-task',[$user->id, $task->task_id])}}" method="PUT">--}}
+                {{Form::open(array( 'route'=> array('edit-task', $user->id, $task->task_id), 'method' =>'put')) }}
+
                 <div class="form-group row">
                     <label for="taskID" class="col-sm-2 col-form-label">Task ID</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="task_id" name="task_id" value="{{$task->task_id}}">
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="enumeratorID" class="col-sm-2 col-form-label">Enumerator ID</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="enumerator_id" name="enumerator_id" value="{{ $user->id }}" readonly>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="Location" class="col-sm-2 col-form-label">Location</label>
                     <div class="col-sm-10">
@@ -145,7 +172,6 @@
                     </div>
                 </fieldset>
 
-
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
                         <button type="submit" class="btn btn-info">
@@ -158,8 +184,11 @@
                 </div>
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
 
-            </form>--}}
+                {{ Form::close() }}
+
+                {{--</form>--}}
+
+            </div>
         </div>
-    </div>
     </div>
 @stop

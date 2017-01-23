@@ -18,47 +18,79 @@
                 <span class="glyphicon glyphicon-search"></span>
             </button>
         </span>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="status" id="gridRadios1" value="open" checked>
+                        Task is open
+                    </label>
+
+                    <label class="form-check-label" style="margin-left: 10px">
+                        <input class="form-check-input" type="radio" name="status" id="gridRadios1" value="open">
+                        Task is closed
+                    </label>
+                </div>
+
+            </div>
         </div>
     </form>
 
-    <div class="container">
-        @if(isset($details))
-            <p> The Search results for your query <b> {{ $query }} </b> are :</p>
-            <h2> Enumerator Details</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>ID</th>
-                    <th>Ward</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($details as $user)
-                    <tr>
-                        <td>{{$user->lastname}}</td>
-                        <td>{{$user->firstname}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->id}}</td>
-                        <td>{{$user->ward}}</td>
-                        <td><a href="{{ route('assign-task', ['id'=>$user->id])}}" class="btn btn-success btn-sm " role="button">
-                                <i class="fa fa-paperclip"  style="margin-right: 2px"></i>Assign</a>
-                        </td>
-                        <td><a href="{{ route('assign-task', ['id'=>$user->id])}}" class="btn btn-info btn-sm " role="button">
-                                <i class="fa fa-pencil"  style="margin-right: 2px"></i>Edit</a>
-
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        @elseif(isset($message))
-            <p> {{$message}} </p>
-        @endif
 
 
-    </div>
+    @if(isset($details))
+        <p> The Search results for your query <b> {{ $query }} </b> are :</p>
+        <h3> Enumerator Details</h3>
+        <div class="container">
+            <div class="panel panel-info">
+                <div class="panel-heading ">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Results
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>ID</th>
+                            <th>Ward</th>
+                            <th>Tasks Open</th>
+                            <th>Action</th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($details as $user)
+
+                            <tr>
+                                <td>{{$user->lastname}}</td>
+                                <td>{{$user->firstname}}</td>
+                                <td>{{$user->id}}</td>
+                                <td>{{$user->ward}}</td>
+                                <td>{{$status[$user->id]}}</td>
+
+                                <td><a href="{{ route('assign-task', ['id'=>$user->id])}}" class="btn btn-success btn-sm " role="button">
+                                        <i class="fa fa-paperclip"  style="margin-right: 2px"></i>Assign</a>
+                                </td>
+                                <td><a href="{{ route('view-tasks', ['id'=>$user->id])}}" class="btn btn-info btn-sm " role="button">
+                                        <i class="fa fa-eye"  style="margin-right: 2px"></i>View</a>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    @elseif(isset($message))
+                        <p> {{$message}} </p>
+                    @endif
+                </div>
+
+            </div>
+
+
+        </div>
 @stop

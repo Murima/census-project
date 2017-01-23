@@ -33,6 +33,6 @@ class CreateTasklist extends Migration
     public function down()
     {
         //
-        Schema::drop('task_list');
+        Schema::dropIfExists('task_list');
     }
 }

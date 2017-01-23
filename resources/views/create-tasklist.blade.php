@@ -85,6 +85,7 @@
                     @endforeach
 
                 @endif
+
                 <form action="{{route('assign-task',[$user->id])}}" method="post">
                     <div class="form-group row">
                         <label for="taskID" class="col-sm-2 col-form-label">Task ID</label>
@@ -139,14 +140,18 @@
 
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Submit
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Save
+                            </button>
+                            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
+                                <i class="fa fa-eye" style="margin-right: 5px"></i>View
                             </button>
                         </div>
                     </div>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
 
                 </form>
+
             </div>
         </div>
     </div>

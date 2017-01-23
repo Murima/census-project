@@ -236,6 +236,7 @@ return [
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Form'     => Collective\Html\FormFacade::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
         'HTML'     => Collective\Html\HtmlFacade::class,
         'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
         'Ekko' => Laravelista\Ekko\Facades\Ekko::class,

@@ -31,5 +31,6 @@ class CreateCensusEventTable extends Migration
     public function down()
     {
         //
+        dropIfExists('census_events');
     }
 }
