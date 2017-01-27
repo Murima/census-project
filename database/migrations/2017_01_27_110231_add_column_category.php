@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TokensMigration extends Migration
+class AddColumnCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,8 @@ class TokensMigration extends Migration
     public function up()
     {
         //
-        Schema::create('tokens', function (Blueprint $table)
-        {
-            $table->integer('id');
-            $table->text('token', 500);
-
+        Schema::table('information_for_all', function ($table) {
+            $table->integer('category');
         });
     }
 
@@ -30,6 +27,6 @@ class TokensMigration extends Migration
     public function down()
     {
         //
-        Schema::drop('tokens');
+        $table->dropColumn('category');
     }
 }
