@@ -14,7 +14,8 @@
         "jeroennoten/laravel-adminlte": "^1.17",
         "tymon/jwt-auth": "^0.5.9",
         "watson/bootstrap-form": "^1.0",
-        "laravelista/ekko": "^1.3"
+        "laravelista/ekko": "^1.3",
+        "khill/lavacharts" : "3.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

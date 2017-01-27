@@ -143,7 +143,8 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Save
                             </button>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
+                            <button type="submit" class="btn btn-primary" style="margin-left: 10px;" href="{{ route('view-tasks', ['id'=>$user->id])}}">
+
                                 <i class="fa fa-eye" style="margin-right: 5px"></i>View
                             </button>
                         </div>

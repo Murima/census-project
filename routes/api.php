@@ -23,3 +23,5 @@ Route::post('authenticate', 'Api\AuthenticateController@authenticateEnumerator')
 Route::get('user-details/{email}', 'Api\AccountDetailsController@getDetails');
 
 Route::get('user-details/tasks/{email}', 'Api\TasksController@getTasks');
+
+Route::post('post/data/{email}', 'Api\SurveyFormsController@receiveSurveyData');

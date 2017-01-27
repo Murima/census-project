@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Token;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -30,22 +31,29 @@ class AuthenticateController extends Controller
     }
 
     public function authenticateEnumerator(Request $request){
-         //authenticate the enumerator
-        /*TODO ensure only enumerators log in with api*/
+        //authenticate the enumerator
+        //TODO save tokens to database
 
-        $credentials = $request->only('email', 'password');
-        try {
-            // verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+        $user = User::whereEmail($request['email'])->get()->first();
+        if ($user->is_enumerator || $user->is_admin){
+
+            $credentials = $request->only('email', 'password');
+            try {
+                // verify the credentials and create a token for the user
+                if (! $token = JWTAuth::attempt($credentials)) {
+                    return response()->json(['error' => 'invalid_credentials'], 401);
+                }
+            } catch (JWTException $e) {
+                // something went wrong
+                return response()->json(['error' => 'could_not_create_token'], 500);
             }
-        } catch (JWTException $e) {
-            // something went wrong
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
 
-        // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+
+            // if no errors are encountered we can return a JWT token
+            return response()->json(compact('token'));
+        }
+        return response()->json(['error' => 'invalid_credentials'], 401);
+
     }
 
 }

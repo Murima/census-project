@@ -82,37 +82,35 @@ class TaskListController extends Controller
 
     public function assignTask($id, Request $request)
     {
-        {
 
-            $this->validate($request, [
-                'duration' => 'required',
-                'location' => 'required',
-                'enumerator_id' => 'required',
-                'task_id' => 'required|unique:task_list|max:2'
+        $this->validate($request, [
+            'duration' => 'required',
+            'location' => 'required',
+            'enumerator_id' => 'required',
+            'task_id' => 'required|unique:task_list|max:2'
 
-            ]);
+        ]);
 
-            $taskID = $request['task_id'];
-            $location = $request['location'];
-            $duration = $request['duration'];
-            $status = $request['status'];
+        $taskID = $request['task_id'];
+        $location = $request['location'];
+        $duration = $request['duration'];
+        $status = $request['status'];
 
-            $tasks = new TasksModel();
-            $tasks->enumerator_id = $id;
-            $tasks->task_name=$location;
-            $tasks->task_id = $taskID;
-            $tasks->status= $status;
-            $tasks->task_duration = $duration;
+        $tasks = new TasksModel();
+        $tasks->enumerator_id = $id;
+        $tasks->task_name=$location;
+        $tasks->task_id = $taskID;
+        $tasks->status= $status;
+        $tasks->task_duration = $duration;
 
-            $tasks->save();
-
-
-            $request->session()->flash('alert-success','successfully added!');
+        $tasks->save();
 
 
-            return $this->getTaskForm($id);
+        $request->session()->flash('alert-success','successfully added!');
 
-        }
+
+        return $this->getTaskForm($id);
+
 
     }
 
