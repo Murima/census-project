@@ -15,7 +15,7 @@ class AddStatusCoulmn extends Migration
     {
         //
         Schema::table('task_list', function ($table) {
-            $table->string('status');
+            //$table->string('status');
         });
     }
 

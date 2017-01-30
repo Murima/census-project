@@ -27,6 +27,8 @@ class AddColumnCategory extends Migration
     public function down()
     {
         //
-        $table->dropColumn('category');
+        Schema::table('information_for_all', function($table) {
+            $table->dropColumn('category');
+        });
     }
 }

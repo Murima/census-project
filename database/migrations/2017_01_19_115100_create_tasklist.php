@@ -20,7 +20,7 @@ class CreateTasklist extends Migration
             $table->string('enumerator_id');
             $table->string('task_name');
             $table->string('task_duration');
-            $table->string('status');
+            //$table->string('status');
             $table->rememberToken();
 
         });

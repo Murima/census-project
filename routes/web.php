@@ -30,6 +30,10 @@ Route::get( 'admin/create-census', ['as'=> 'create-census', function (){
 
 Route::post('admin/create-census', 'RegistrationController@createEvent')->name('create-census');
 
+Route::get('admin/view-events', 'RegistrationController@viewEvents')->name('view-events');
+
+Route::any('admin/edit-event/{id}', 'RegistrationController@editEvent')->name('edit-event');
+
 Route::any ('admin/register-official', 'UserController@signUpOfficial')->name('register-official');
 
 Route::get('admin/register-enumerator', ['as'=> 'register-enumerator', function (){

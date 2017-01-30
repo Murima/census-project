@@ -87,7 +87,7 @@ desired effect
         <section class="content-header">
             <h1>
                 Admin Dashboard
-                <small>Control the census entities</small>
+                <small>view events</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -97,103 +97,58 @@ desired effect
 
         <div class="panel panel-warning">
             <div class="panel-heading ">
-                <span class="glyphicon glyphicon-edit"></span>
-                Create Events
-
-                <a href="{{route('view-events')}}" class="btn btn-info btn-sm " role="button">
-                    <i class="fa phpdebugbar-fa-eye"  style="margin-right: 5px"></i>View Events</a>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                View Events
             </div>
             <!-- Main content -->
             <section class="content">
 
                 <!-- Your Page Content Here -->
-            @yield('content')
-            <!-- census event progress-->
-                <div class="col-md-3 col-sm-6 col-xs-12" style="float:right">
-                    <div class="info-box bg-yellow">
-                        <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+                @yield('content')
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">Census Events</span>
-                            <span class="info-box-number">
-                            @if(isset($numbEvents))
-                                    <p>{{ $numbEvents }}</p>
-                                @endif
-
-                        </span>
-
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 1%"></div>
+                @if(Session::has('alert-success'))
+                    @foreach(['success'] as $msg)
+                        @if(Session::has('alert-').$msg)
+                            <div class="alert alert-{{ $msg }} alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <p > {{ Session::get('alert-' . $msg) }}</p>
                             </div>
-                            <span class="progress-description"></span>
+                         @endif
+                    @endforeach
 
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <!-- /census event progress-->
+                @endif
 
-                <!--create census event-->
+            <!--show the events -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Eevent ID</th>
+                        <th>Date range</th>
 
-                <div class="col-md-4">
-                    <!--display success message-->
-                    @if(Session::has('alert-success'))
-                        @foreach(['success'] as $msg)
-                            @if(Session::has('alert-').$msg)
-                                <div class="alert alert-{{ $msg }} alert-dismissible">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <p > {{ Session::get('alert-' . $msg) }}</p>
-                                </div>
-                            @endif
-                        @endforeach
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($events as $event)
 
-                    @endif
+                        <tr>
+                            <td>{{$event->census_name}}</td>
+                            <td>{{$event->census_id}}</td>
+                            <td>{{$event->daterange}}</td>
 
-                    <form action="{{route('create-census')}}" method="post">
-                        <div class="form-group">
-                            <label for="censusID"> CensusID</label>
-                            <input class="form-control" name="censusID" type="text" id="censusID">
+                            <td><a href="{{route('edit-event',['id'=>$event->census_id]) }}" class="btn btn-success btn-sm " role="button">
+                                    <i class="fa fa-paperclip"  style="margin-right: 2px"></i>Edit</a>
+                            </td>
+                            <td><a href="#" class="btn btn-danger btn-sm " role="button">
+                                    <i class="fa fa-eye"  style="margin-right: 2px"></i>Delete</a>
 
-                        </div>
+                            </td>
+                        </tr>
+                    @endforeach
 
-                        <div class="form-group">
-                            <label for="daterange"> Date Range</label>
-                            <input class="form-control" name="daterange" type="text" id="daterange">
-
-                        </div>
-
-                        <!--attach javascript to the html element-->
-                        <script type="text/javascript">
-                            $('input[name="daterange"]').daterangepicker(
-                                {
-                                    locale: {
-                                        format: 'DD-MM-YYYY'
-                                    },
-                                    startDate: '01-01-2009',
-                                    endDate: '30-01-2009'
-                                },
-                                <!--callback function to submit to get values-->
-                                function(start, end, label) {
-
-                                    $('#daterange').val(start.format('DD-MM-YYY'))
-                                });
-                        </script>
-
-                        <div class="form-group">
-                            <label for="censusName"> Census Name</label>
-                            <input class="form-control" name="censusName" type="text" id="censusName">
-
-                        </div>
-
-                        <button type="submit" class="btn-primary"> Submit </button>
-                        <input type="hidden" name="_token" value="{{ Session::token() }}">
-
-                    </form>
-                </div>
-
-
+                    </tbody>
+                </table>
             </section>
             <!-- /.content -->
         </div>

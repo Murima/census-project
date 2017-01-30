@@ -31,6 +31,6 @@ class CreateCensusEventTable extends Migration
     public function down()
     {
         //
-        dropIfExists('census_events');
+        Schema::dropIfExists('census_events');
     }
 }
