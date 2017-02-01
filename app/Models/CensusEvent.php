@@ -22,6 +22,7 @@ class CensusEvent extends Model
     //
     public $timestamps = false;
     //protected $table= 'census_events';
+    protected $primaryKey='census_id';
 
     public function getNumberofEvents(){
 

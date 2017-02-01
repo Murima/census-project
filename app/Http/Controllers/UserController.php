@@ -206,4 +206,9 @@ class UserController extends Controller
         return new Response($file, 200);
     }
 
+    public function viewUsers(){
+        $users = User::whereIsAdmin(null)->get();
+        return view('dashboard-view-users')->withUsers($users);
+
+    }
 }
