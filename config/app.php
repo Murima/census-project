@@ -169,6 +169,7 @@ return [
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Watson\BootstrapForm\BootstrapFormServiceProvider::class,
         Laravelista\Ekko\EkkoServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
         /*
          * Package Service Providers...

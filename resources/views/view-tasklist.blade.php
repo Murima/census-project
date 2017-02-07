@@ -11,6 +11,12 @@
         <div class="panel-heading ">
             <span class="glyphicon glyphicon-eye-open"></span>
             View Tasks
+
+            <a type="submit" class="btn btn-success" style="margin-left: 10px;" href="{{ route('assign-task',['id'=>$user->id])}}">
+
+                <i class="fa phpdebugbar-fa-paperclip" style="margin-right: 5px"></i>
+                Assign
+            </a>
         </div>
         @if(Storage::disk('local')->has($user->firstname.'-'.$user->id.'.jpg'))
             <!--display success message-->
@@ -80,10 +86,10 @@
                         <td>{{$task->status}}</td>
 
                         <td><a href="{{ route('edit-task',['id'=>$task->enumerator_id,'task_id'=>$task->task_id]) }}" class="btn btn-success btn-sm " role="button">
-                                <i class="fa fa-paperclip"  style="margin-right: 2px"></i>Edit</a>
+                                <i class="fa phpdebugbar-fa-edit"  style="margin-right: 2px"></i>Edit</a>
                         </td>
-                        <td><a href="{{ route('delete-task', ['id'=>$user->id, 'task_id'=>$task->task_id])}}" class="btn btn-danger btn-sm " role="button">
-                                <i class="fa fa-eye"  style="margin-right: 2px"></i>Delete</a>
+                        <td><a href="{{ route('delete-task', ['task_id'=>$task->task_id, 'id'=>$user->id])}}" class="btn btn-danger btn-sm " role="button">
+                                <i class="fa phpdebugbar-fa-trash"  style="margin-right: 2px"></i>Delete</a>
 
                         </td>
                     </tr>

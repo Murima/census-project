@@ -142,7 +142,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Generate Reports',
-                    'url'  => '#',
+                    'url'  => 'official/show-graphs',
                     'icon'    => 'tasks',
                 ],
                 [

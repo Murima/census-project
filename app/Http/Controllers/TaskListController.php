@@ -13,42 +13,29 @@ use View;
 class TaskListController extends Controller
 {
     //
-    //$table="census_event";
+    //
 
     public function searchUser(Request $request)
     {
         $query = Input::get('search-user');
 
         if($query !='') {
-            /*$user = DB::table('users')
-                ->where('is_enumerator', '=', 1)
-                ->where(function ($query)
-                {
-                    $query->where('firstname', 'LIKE', '%' . $query . '%')
-                        ->orWhere('email', 'LIKE', '%' . $query . '%')
-                        ->orWhere('id', 'LIKE', '%' . $query . '%')
-                        ->orWhere('lastname', 'LIKE', '%' . $query . '%')
-                        ->orWhere('county', 'LIKE', '%' . $query . '%')
-                        ->orWhere('ward', 'LIKE', '%' . $query . '%');
 
-                })->get();*/
-
-
-            $user = User::where(function ($query) {
-                $query->whereNotNull('is_enumerator');
-
-            })->where('firstname', 'LIKE', '%' . $query . '%')
-                ->orWhere('email', 'LIKE', '%' . $query . '%')
-                ->orWhere('id', 'LIKE', '%' . $query . '%')
-                ->orWhere('lastname', 'LIKE', '%' . $query . '%')
-                ->orWhere('county', 'LIKE', '%' . $query . '%')
-                ->orWhere('ward', 'LIKE', '%' . $query . '%')
-
-
+            $user = User::where(function ($q) use ($query) {
+                $q->where('firstname', 'LIKE', '%' . $query . '%')
+                    ->orWhere('email', 'LIKE', '%' . $query . '%')
+                    ->orWhere('id', 'LIKE', '%' . $query . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $query . '%')
+                    ->orWhere('county', 'LIKE', '%' . $query . '%')
+                    ->orWhere('ward', 'LIKE', '%' . $query . '%');
+            })
+                ->whereNotNull('is_enumerator')
                 ->get();
+
+
             $userCount = count($user);
 
-            if ($userCount > 0) {
+            if ($userCount > 0) { //add number of tasks
                 $status = array();
 
                 foreach ($user as $enum) {
@@ -62,8 +49,8 @@ class TaskListController extends Controller
             } else {
                 return view('dashboard-official-search')->withMessage('No Enumerators found. Try to search again !');
             }
-
         }
+
         return view('dashboard-official-search')->withMessage('No Enumerators found. Try to search again !');
     }
 
@@ -72,8 +59,12 @@ class TaskListController extends Controller
         if ($id) {
 
             $user = User::where('id', $id)->get()->first();
+            $task_id = TasksModel::max('task_id')+1;
+            $tasksClosed = TasksModel::where('enumerator_id', $id)
+                ->whereStatus('closed')->count();
 
-            return \View::make('create-tasklist')->with('user', $user);
+            return \View::make('create-tasklist')->with('user', $user)
+                ->with('taskId', $task_id)->with('tasksDone', $tasksClosed);
 
         }
 
@@ -95,12 +86,14 @@ class TaskListController extends Controller
         $location = $request['location'];
         $duration = $request['duration'];
         $status = $request['status'];
+        $date = $request['datepick'];
 
         $tasks = new TasksModel();
         $tasks->enumerator_id = $id;
         $tasks->task_name=$location;
         $tasks->task_id = $taskID;
         $tasks->status= $status;
+        $tasks->date= $date;
         $tasks->task_duration = $duration;
 
         $tasks->save();

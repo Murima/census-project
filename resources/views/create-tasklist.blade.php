@@ -11,6 +11,10 @@
         <div class="panel-heading ">
             <span class="glyphicon glyphicon-edit"></span>
             Assign Task
+            <a type="submit" class="btn btn-info" style="margin-left: 10px;" href="{{ route('view-tasks', ['id'=>$user->id])}}">
+
+                <i class="fa fa-eye" style="margin-right: 5px"></i>View
+            </a>
         </div>
 
         <div class="panel-body">
@@ -46,7 +50,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="ward">Tasks done:</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">1</p>
+                                <p class="form-control-static">{{$tasksDone}}</p>
                             </div>
 
                         </div>
@@ -90,7 +94,7 @@
                     <div class="form-group row">
                         <label for="taskID" class="col-sm-2 col-form-label">Task ID</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="task_id" name="task_id">
+                            <input type="text" class="form-control" id="task_id" name="task_id" value="{{$taskId}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -112,6 +116,30 @@
                             <input type="text" class="form-control" id="duration" name="duration" placeholder="Hrs">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="datepick" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="datepick" id="datepick" placeholder="DD-MM-YYY">
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        $('input[name="datepick"]').daterangepicker(
+                            {
+                                singleDatePicker: true,
+                                showDropdowns: true,
+                                locale: {
+                                    format: 'DD-MM-YYYY'
+                                },
+                                startDate: '1/1/2017'
+                            },
+                            <!--callback function to submit to get values-->
+                            function(start, end, label) {
+
+                                $('#daterange').val(start.format('DD-MM-YYY'))
+                            });
+                    </script>
 
                     <fieldset class="form-group row">
                         <legend class="col-form-legend col-sm-2">Status</legend>
@@ -143,10 +171,7 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Save
                             </button>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 10px;" href="{{ route('view-tasks', ['id'=>$user->id])}}">
 
-                                <i class="fa fa-eye" style="margin-right: 5px"></i>View
-                            </button>
                         </div>
                     </div>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">

@@ -11,6 +11,10 @@ use App\Models\census_forms\InformationOnICT;
 use App\Models\census_forms\LabourForce;
 use App\Models\census_forms\PersonsAbove3;
 use App\Models\census_forms\PersonsWithDisabilities;
+use App\Models\FormStatus;
+use App\Models\FormStatusModel;
+use App\Models\TasksModel;
+use App\Models\User;
 use Debugbar;
 use Eloquent;
 use Illuminate\Http\Request;
@@ -18,7 +22,13 @@ use Illuminate\Http\Request;
 class SurveyFormsController extends Controller
 {
     //
-    public function receiveSurveyData($email,Request $request){
+    protected $headId;
+    public $houseNo;
+    protected $occupantNo;
+    protected $location;
+    protected $task_id;
+
+    public function receiveSurveyData($email, Request $request){
         /**
          * receive and sort the data using category value
          */
@@ -26,11 +36,28 @@ class SurveyFormsController extends Controller
         if ($request->has("form"))
         {
             $forms = $request->form;
-            //dd($forms);
-            //$forms_JObject = json_decode($forms);
-
+            $forms = json_decode($forms, true);
             $category = $forms['category'];
-            unset($forms['location']); //TODO check location at the moment delete
+            $this->location = $forms['location']; //TODO check location at the moment delete
+
+            //form identifiers
+            if ($forms['head_id']){
+                $this->headId= $forms['head_id'];
+                $this->houseNo = $forms['houseNo'];
+                $this->occupantNo = $forms['occupant_No'];
+            }
+
+            $user = User::whereEmail($email)->get();
+            $formStatus=$this->checkDate($forms['date'], $user[0]->id);
+
+            if($formStatus){
+
+                $this->saveStatus($user,$status="Accepted", $category);
+
+            }
+            else{
+                $this->saveStatus($user, $status="Rejected", $category);
+            }
 
             switch ($category){
 
@@ -77,7 +104,9 @@ class SurveyFormsController extends Controller
         /**
          * check location and store to DB
          */
+
         Eloquent::unguard();
+        unset($forms['date']);
 
         $all = new InformationAll($forms);
         $all->save();
@@ -160,8 +189,56 @@ class SurveyFormsController extends Controller
     }
 
     protected function checkLocation(){
+        /**
+         * check location with task location
+         */
 
     }
 
+    protected function checkDate($date, $id){
+        /**
+         * check date
+         */
+
+        $taskId= TasksModel::where('status', 'open')->min('task_id');
+        $task = TasksModel::where('status', 'open')->where('task_id', $taskId)->where('date', $date)->get();
+
+        if ($task) {
+            //task is found
+            $this->task_id = $taskId;
+            $task->stauts = 'closed';
+            $todayDate = date('m-d-y');
+
+            if ($todayDate == $date) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    protected function saveStatus($user,$status, $category){
+        /**
+         * save the status of the form
+         */
+
+        $formStatus = new FormStatusModel();
+
+        $formStatus->house_no= $this->houseNo;
+        $formStatus->task_id= $this->task_id;
+        $formStatus->category=$category;
+        $formStatus->date= date('m/d/y');
+        $formStatus->status=$status;
+        $formStatus->location= $this->location;
+        $formStatus->enumerator_id= $user[0]->id;
+        $formStatus->time= date('h:m:s',time());
+
+        $formStatus->save();
+
+    }
 
 }

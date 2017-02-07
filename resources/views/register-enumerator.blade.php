@@ -101,6 +101,18 @@ desired effect
             <!-- Your Page Content Here -->
         @yield('content')
 
+            <div class="panel panel-info">
+                <div class="panel-heading ">
+                    <span class="glyphicon glyphicon-user"></span>
+                    register enumerator
+                    <div class="panel-btn" style="margin-top: 5px;">
+                        <a class="btn btn-sm btn-info" href="{{route('view-users')}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            view users
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
 
         <!-- Registered users widget -->
             <div class="col-lg-3 col-xs-6" style="float:right">
@@ -227,7 +239,9 @@ desired effect
 
                     </div>
 
-                    <button type="submit" class="btn-primary"> Submit </button>
+                    <button type="submit" class="btn-success">
+                        <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Submit
+                    </button>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
 
                 </form>
@@ -242,12 +256,12 @@ desired effect
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
+</div>
+</body>
 
     <!-- footer -->
     @include('includes.dashboard.dashboard-footer')
 
-</div>
 <!-- ./wrapper -->
 
 

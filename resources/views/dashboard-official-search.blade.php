@@ -37,11 +37,11 @@
     </form>
 
 
+    <div class="container">
 
-    @if(isset($details))
-        <p> The Search results for your query <b> {{ $query }} </b> are :</p>
-        <h3> Enumerator Details</h3>
-        <div class="container">
+        @if(isset($details))
+            <p> The Search results for your query <b> {{ $query }} </b> are :</p>
+            <h4> Enumerator Details</h4>
             <div class="panel panel-info">
                 <div class="panel-heading ">
                     <span class="glyphicon glyphicon-edit"></span>
@@ -86,11 +86,46 @@
                     </table>
                     @elseif(isset($message))
                         <p> {{$message}} </p>
-                    @endif
                 </div>
-
             </div>
 
+        @else
+            <h4> Enumerator Details</h4>
+            <div class="panel panel-info" style="margin-top: 30px;">
+                <div class="panel-heading ">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Results
+                </div>
 
-        </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>ID</th>
+                            <th>Ward</th>
+                            <th>Tasks Open</th>
+                            <th>Action</th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+    </div>
+
 @stop

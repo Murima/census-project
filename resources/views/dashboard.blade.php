@@ -95,7 +95,7 @@ desired effect
             </ol>
         </section>
 
-        <div class="panel panel-warning">
+        <div class="panel panel-info">
             <div class="panel-heading ">
                 <span class="glyphicon glyphicon-edit"></span>
                 Create Events
@@ -154,7 +154,7 @@ desired effect
                     <form action="{{route('create-census')}}" method="post">
                         <div class="form-group">
                             <label for="censusID"> CensusID</label>
-                            <input class="form-control" name="censusID" type="text" id="censusID">
+                            <input class="form-control" name="censusID" type="text" id="censusID" value="{{$id}}" readonly>
 
                         </div>
 

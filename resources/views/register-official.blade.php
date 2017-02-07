@@ -28,7 +28,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="{{ URL::to('css/skins/skin-red.css') }}">
     <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script>
         $.widget.bridge('uibutton', $.ui.button);
     </script>
@@ -99,118 +98,132 @@ desired effect
         <section class="content" style="min-height: 600px" >
 
             <!-- Your Page Content Here -->
-        @yield('content')
+            @yield('content')
 
-        <!-- Registered users widget -->
-            <div class="col-lg-3 col-xs-6" style="float:right">
-                <!-- small box -->
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                        <h3></h3>
-                        @if(isset($user))
-                            <h3>{{ $user }}</h3>
-                        @endif
-
-                        <p>User Registrations</p>
+            <div class="panel panel-info">
+                <div class="panel-heading ">
+                    <span class="glyphicon glyphicon-user"></span>
+                    register official
+                    <div class="panel-btn" style="margin-top: 5px;">
+                        <a class="btn btn-sm btn-info" href="{{route('view-users')}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            view users
+                        </a>
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
                 </div>
-            </div>
-            <!-- ./col -->
-            <!-- /Registered users widget -->
+                <div class="panel-body">
+                    <!-- Registered users widget -->
+                    <div class="col-lg-3 col-xs-6" style="float:right">
+                        <!-- small box -->
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <h3></h3>
+                                @if(isset($user))
+                                    <h3>{{ $user }}</h3>
+                                @endif
 
-            <!--Register official-->
-
-            @if(count($errors)>0)
-
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <ul>
-                            @foreach( $errors->all() as $error)
-                                <li class="text-danger">
-                                    {{ $error }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                </div>
-            @endif
-
-            <div class="col-md-6">
-                <!--display success message-->
-                @if(Session::has('alert-success'))
-                    @foreach(['success'] as $msg)
-                        @if(Session::has('alert-').$msg)
-                            <div class="alert alert-{{ $msg }} alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <p > {{ Session::get('alert-' . $msg) }}</p>
+                                <p>User Registrations</p>
                             </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">
+                                More info <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <!-- /Registered users widget -->
+
+                    <!--Register official-->
+
+                    @if(count($errors)>0)
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <ul>
+                                    @foreach( $errors->all() as $error)
+                                        <li class="text-danger">
+                                            {{ $error }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                        </div>
+                    @endif
+
+                    <div class="col-md-6">
+                        <!--display success message-->
+                        @if(Session::has('alert-success'))
+                            @foreach(['success'] as $msg)
+                                @if(Session::has('alert-').$msg)
+                                    <div class="alert alert-{{ $msg }} alert-dismissible">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <p > {{ Session::get('alert-' . $msg) }}</p>
+                                    </div>
+                                @endif
+                            @endforeach
+
                         @endif
-                    @endforeach
 
-                @endif
+                        <form action="{{ route('register-official') }} " method="post" enctype="multipart/form-data">
 
-                <form action="{{ route('register-official') }} " method="post" enctype="multipart/form-data">
+                            <div class="form-group" {{ $errors->has('firstname') ? 'has-error':'' }}>
+                                <label for="firstname"> First Name</label>
+                                <input class="form-control" name="firstname" type="text" id="firstname">
 
-                    <div class="form-group" {{ $errors->has('firstname') ? 'has-error':'' }}>
-                        <label for="firstname"> First Name</label>
-                        <input class="form-control" name="firstname" type="text" id="firstname">
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('lastname') ? 'has-error':'' }}>
+                                <label for="lastname"> Last Name</label>
+                                <input class="form-control" name="lastname" type="text" id="lastname">
+
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('ID') ? 'has-error':'' }}>
+                                <label for="ID"> ID</label>
+                                <input class="form-control" name="ID" type="text" id="ID">
+
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('email') ? 'has-error':'' }}>
+                                <label for="email"> Email</label>
+                                <input class="form-control" name="email"  type="text" placeholder="email"  id="email"
+                                       aria-describedby="basic-addon1">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Password"> Password</label>
+                                <input class="form-control" name="password" type="password" id="password">
+
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('county') ? 'has-error':'' }}>
+                                <label for="county"> County</label>
+                                <input class="form-control" name="county" type="text" id="county">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Image (only .jpg)</label>
+                                <input type="file" name="image" class="form-controol" id="image">
+
+                            </div>
+
+                            <button type="submit" class="btn-success">
+                                <i class="fa phpdebugbar-fa-download" style="margin-right: 5px"></i>Submit
+                            </button>
+                            <input type="hidden" name="_token" value="{{ Session::token() }}">
+
+                        </form>
 
                     </div>
-
-                    <div class="form-group" {{ $errors->has('lastname') ? 'has-error':'' }}>
-                        <label for="lastname"> Last Name</label>
-                        <input class="form-control" name="lastname" type="text" id="lastname">
-
-                    </div>
-
-                    <div class="form-group" {{ $errors->has('ID') ? 'has-error':'' }}>
-                        <label for="ID"> ID</label>
-                        <input class="form-control" name="ID" type="text" id="ID">
-
-                    </div>
-
-                    <div class="form-group" {{ $errors->has('email') ? 'has-error':'' }}>
-                        <label for="email"> Email</label>
-                        <input class="form-control" name="email"  type="text" placeholder="email"  id="email"
-                               aria-describedby="basic-addon1">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Password"> Password</label>
-                        <input class="form-control" name="password" type="password" id="password">
-
-                    </div>
-
-                    <div class="form-group" {{ $errors->has('county') ? 'has-error':'' }}>
-                        <label for="county"> County</label>
-                        <input class="form-control" name="county" type="text" id="county">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image">Image (only .jpg)</label>
-                        <input type="file" name="image" class="form-controol" id="image">
-
-                    </div>
-
-                    <button type="submit" class="btn-primary"> Submit </button>
-                    <input type="hidden" name="_token" value="{{ Session::token() }}">
-
-                </form>
-
+                    <!--/Register official-->
+                </div>
             </div>
-            <!--/Register official-->
-
-
 
         </section>
         <!-- /.content -->

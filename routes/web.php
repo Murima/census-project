@@ -25,21 +25,25 @@ Route::any( '/signin', 'UserController@signIn')->name('signin');
 Route::get('admin/dashboard', 'UserController@getDashboard')->name('dashboard');
 
 Route::get( 'admin/create-census', ['as'=> 'create-census', function (){
-    return View::make('dashboard');
+    $id = \App\Models\CensusId::max('id')+10010;
+
+    return view('dashboard')->withId($id);
 }]);
 
 Route::post('admin/create-census', 'RegistrationController@createEvent')->name('create-census');
-
 Route::get('admin/view-events', 'RegistrationController@viewEvents')->name('view-events');
-
 Route::any('admin/edit-event/{id}', 'RegistrationController@editEvent')->name('edit-event');
+Route::get('admin/view-event/delete-event/{id}', 'RegistrationController@deleteEvent');
 
 Route::any ('admin/register-official', 'UserController@signUpOfficial')->name('register-official');
+Route::get('admin/view-users', 'UserController@viewUsers')->name('view-users');
+Route::any('admin/edit-user/{id}', 'UserController@editUser');
+Route::any('admin/delete-user/{id}', 'UserController@deleteUser');
+
 
 Route::get('admin/register-enumerator', ['as'=> 'register-enumerator', function (){
     return View::make('register-enumerator');
 }]);
-
 Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->name('register-enumerator');
 
 Route::get('user/image/{filename}', 'UserController@getUserImage')->name('user-image');
@@ -49,12 +53,13 @@ Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
 }]);
 
 Route::get('official/search-user', ['as'=> 'official/search-user', function(){
+
+
     return View::make('dashboard-official-search');
 }]);
 Route::post('official/search-user', 'TaskListController@searchUser');
 
 Route::get('official/search-user/view-tasks/{id}', 'TaskListController@viewTasks')->name('view-tasks');
-
 Route::get('official/search-user/assign-task/{id}', 'TaskListController@getTaskForm')->name('assign-task');
 Route::post('official/search-user/assign-task/{id}', 'TaskListController@assignTask')->name('assign-task');
 
@@ -67,4 +72,10 @@ Route::get('official/search-user/edit-task/{id}/{task_id}', ['as'=>'edit-task', 
 
 Route::put('official/search-user/edit-task/{id}/{task_id}', 'TaskListController@editTask')->name('edit-task');
 
-Route::get('official/search-user/delete-task/{id}/{task_id}', 'TaskListController@deleteTask')->name('delete-task');
+Route::get('official/search-user/delete-task/{task_id}/{id}', 'TaskListController@deleteTask')->name('delete-task');
+
+Route::get('official/form-processing/form-status', 'FormStatus@index');
+
+Route::get('official/show-graphs', 'ChartController@genderAgegroup');
+
+Route::get('official/show-graph', 'ChartController@genderAgegroup');

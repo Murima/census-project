@@ -85,7 +85,9 @@ class UserController extends Controller
 
 
     public function getDashboard() {
-        return view('dashboard');
+        $id = \App\Models\CensusId::max('id')+10010;
+
+        return view('dashboard')->withId($id);
 
     }
 
@@ -211,4 +213,90 @@ class UserController extends Controller
         return view('dashboard-view-users')->withUsers($users);
 
     }
+
+    public function edituser(Request $request, $id)
+    {
+        $user = User::where('id',$id)->get()->first();
+
+        if ($request->isMethod('put'))
+        {
+
+            $this->validate($request, [
+                'firstname'=> 'required|string',
+                'lastname'=> 'required|string',
+                'email'=> 'required|email',
+                'id'=> 'unique:users|min:6'
+
+            ]);
+
+            $firstname = $request['firstname'];
+            $lastname = $request['lastname'];
+            $id = $request['ID'];
+            $email = $request['email'];
+            $password = bcrypt($request['password']);
+            $county = $request['county'];
+
+            $file = $request->file('image');
+            $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
+
+            if ($file)
+            {
+                Storage::disk('local')->put($filename, File::get($file));
+            }
+
+
+
+            $user->firstname = $firstname;
+            $user-> lastname = $lastname;
+            $user-> id = $id;
+            $user-> email = $email;
+            $user-> password= $password;
+            $user-> county = $county;
+
+            if ($user->is_official){
+                $user->is_official=1;
+            }
+            else if($user->is_enumerator){
+                $phone_number = $request->get('phone_number');
+                $headoffice = $request->get('headoffice');
+                $reportsto = $request->get('reportsto');
+                $supervisor_phone = $request->get('supervisor_phone');
+                $ward= $request->get('ward');
+
+                $user->phone_number=$phone_number;
+                $user->headoffice= $headoffice;
+                $user->reportsto=$reportsto;
+                $user->supervisor_phone=$supervisor_phone;
+                $user->ward=$ward;
+                $user->is_enumerator=1;
+            }
+
+
+
+
+            $user->update();
+
+
+
+            $request->session()->flash('alert-success', 'successfully edited!');
+
+            return $this->viewUsers();
+            //return View::make('edit-tasklist')->with('user', $user)->with('task', $task);
+        }
+        return view('dashboard-edit-user')->withUser($user);
+    }
+
+    public function deleteUser(Request $request, $id){
+
+        if($id){
+            $user = User::where('id',$id)->get()->first();
+
+            $user->delete();
+
+            $request->session()->flash('alert-success','successfully deleted!');
+            return $this->viewUsers();
+
+        }
+    }
+
 }
