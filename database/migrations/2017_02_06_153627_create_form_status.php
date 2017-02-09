@@ -24,6 +24,7 @@ class CreateFormStatus extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('status');
+            $table->primary(array('task_id', 'house_no'));
 
         });
     }
