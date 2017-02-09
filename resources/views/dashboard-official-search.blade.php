@@ -114,13 +114,25 @@
                         </thead>
                         <tbody>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        @foreach($users as $user)
 
-                        </tr>
+                            <tr>
+                                <td>{{$user->lastname}}</td>
+                                <td>{{$user->firstname}}</td>
+                                <td>{{$user->id}}</td>
+                                <td>{{$user->ward}}</td>
+                                <td>{{$status[$user->id]}}</td>
+
+                                <td><a href="{{ route('assign-task', ['id'=>$user->id])}}" class="btn btn-success btn-sm " role="button">
+                                        <i class="fa fa-paperclip"  style="margin-right: 2px"></i>Assign</a>
+                                </td>
+                                <td><a href="{{ route('view-tasks', ['id'=>$user->id])}}" class="btn btn-info btn-sm " role="button">
+                                        <i class="fa fa-eye"  style="margin-right: 2px"></i>View</a>
+
+                                </td>
+                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

@@ -124,7 +124,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Create Task List',
-                    'route'  => 'official/search-user',
+                    'url'  => 'official/search-user',
                     'icon'    => 'tasks',
                 ],
                 [
@@ -141,14 +141,16 @@ return [
             'icon'    => 'pie-chart',
             'submenu' => [
                 [
+                    'text'    => 'View Form Status',
+                    'url'     => 'official/form/form-status',
+                    'icon'    => 'info-circle',
+
+                ],
+                [
+
                     'text' => 'Generate Reports',
                     'url'  => 'official/show-graphs',
                     'icon'    => 'tasks',
-                ],
-                [
-                    'text'    => 'List Enumerators',
-                    'url'     => '#',
-                    'icon'    => 'list-ol',
                 ],
             ],
         ],

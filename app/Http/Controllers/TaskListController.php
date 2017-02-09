@@ -14,6 +14,24 @@ class TaskListController extends Controller
 {
     //
     //
+    public  function listAllUsers(){
+        $status = array();
+        $users = User::whereNotNull('is_enumerator')->get();
+        $userCount = count($users);
+
+        if ($userCount > 0) { //add number of tasks
+            $status = array();
+
+            foreach ($users as $enum) {
+
+                $tasks = TasksModel::where('enumerator_id', $enum->id)->count();
+
+                $status[$enum->id] = $tasks;
+            }
+        }
+
+        return View::make('dashboard-official-search')->with('users', $users)->with('status', $status);
+    }
 
     public function searchUser(Request $request)
     {

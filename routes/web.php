@@ -52,11 +52,7 @@ Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
     return View::make('dashboard-official');
 }]);
 
-Route::get('official/search-user', ['as'=> 'official/search-user', function(){
-
-
-    return View::make('dashboard-official-search');
-}]);
+Route::get('official/search-user', 'TaskListController@listAllUsers')->name('official/search-user');
 Route::post('official/search-user', 'TaskListController@searchUser');
 
 Route::get('official/search-user/view-tasks/{id}', 'TaskListController@viewTasks')->name('view-tasks');
@@ -77,6 +73,6 @@ Route::get('official/search-user/delete-task/{task_id}/{id}', 'TaskListControlle
 Route::get('official/form/form-status', 'FormStatus@index');
 Route::any('official/form/reject-form/{task_id}/{house_no}', 'FormStatus@rejectForm')->name('reject-form');
 
-Route::get('official/show-graphs', 'ChartController@genderAgegroup');
 
+Route::get('official/show-graphs', 'ChartController@genderAgegroup');
 Route::get('official/show-graph', 'ChartController@genderAgegroup');

@@ -65,11 +65,10 @@
 
                         @if($formStatus[$i]->status=="Accepted")
                             <td>
-                                <a class="btn btn-sm btn-danger"
+                                <a class="btn btn-sm btn-danger" role="button"
                                    href="{{
-                                       route('reject-form',['task_id'=>$formStatus[$i]->task_id
-                                       , 'house_no'=>$formStatus[$i]->house_no
-                                       ])
+                                       route('reject-form',['task_id'=>$formStatus[$i]->task_id,
+                                        'house_no'=>$formStatus[$i]->house_no])
                                        }}">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
                                     Reject

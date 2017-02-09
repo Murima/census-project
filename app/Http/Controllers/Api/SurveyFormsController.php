@@ -197,7 +197,7 @@ class SurveyFormsController extends Controller
 
     protected function checkDate($date, $id){
         /**
-         * check date
+         * check date of submission
          */
 
         $taskId= TasksModel::where('status', 'open')->min('task_id');

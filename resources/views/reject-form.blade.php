@@ -27,7 +27,7 @@
         <div class="container col-md-6">
 
 
-            {{ Form::open(array('action' => 'FormStatus@rejectForm', 'method'=>'post')) }}
+            {{ Form::open(array('action' => array('FormStatus@rejectForm',$formDetails->task_id, $formDetails->house_no), 'method'=>'post')) }}
             <div class="form-group row">
                 <label for="location" class="col-sm-2 col-form-label">Location Submitted</label>
                 <div class="col-sm-10">
@@ -57,8 +57,10 @@
             </div>
 
             <div class="form-group row">
-                {{ Form::label('reason','Rejection Reason') }}
-                {{ Form::select('Rejection Reason',$rejectOptions,Input::old('reason'), ['class'=>'form-control'] )}}
+                <label for="reason" class="col-sm-2 col-form-label">Reason Rejected</label>
+                <div class="col-sm-10">
+                    {{ Form::select('Rejection Reason',$rejectOptions,Input::old('reason'), ['class'=>'form-control'] )}}
+                </div>
         </div>
         <div class="form-group row">
             <label for="talkedto" class="col-sm-2 col-form-label">Talked to</label>
