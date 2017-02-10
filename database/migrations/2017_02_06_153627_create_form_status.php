@@ -16,6 +16,7 @@ class CreateFormStatus extends Migration
         //
         Schema::create('form_status', function (Blueprint $table)
         {
+            $table->integer('status_id');
             $table->integer('enumerator_id');
             $table->integer('task_id');
             $table->string('location');
@@ -24,7 +25,9 @@ class CreateFormStatus extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('status');
-            $table->primary(array('task_id', 'house_no'));
+            $table->string('talked_to')->nullable()->default(NULL);;
+            $table->integer('reason_id')->nullable()->default(NULL);;
+            $table->primary(array('status_id','task_id', 'house_no'));
 
         });
     }

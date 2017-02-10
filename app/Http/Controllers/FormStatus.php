@@ -7,14 +7,15 @@ use App\Models\TasksModel;
 use App\Models\FormStatusModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use View;
 
 class FormStatus extends Controller
 {
     //
     public  function index(){
-            $taskList = array();
-            $users= array();
+        $taskList = array();
+        $users= array();
 
 
         $formStatus = FormStatusModel::all();
@@ -32,14 +33,25 @@ class FormStatus extends Controller
 
     public function rejectForm($task_id, $house_no, Request $request){
 
-        if($request->isMethod('post')){
 
-            $this->validate($request, [
+        if($request->isMethod('PUT')){
+
+            $this->validate($request, [//check validation later
                 'reason' => 'required',
                 'talkedto' => 'required',
             ]);
 
+            $form= FormStatusModel::where('task_id', $task_id)->where('house_no', $house_no)->get()->first();
+            $form->talked_to= $request['talkedto'];
+            $form->status="Rejected";
+            $reasonId= $request['reason'];
+            //$reasonRejectionReason::find($reasonId);
+            $form->reason_id = $reasonId;
 
+
+            $form->save();
+
+            return $this->index();
         }
 
         $formDetails = FormStatusModel::where('house_no',$house_no)->where('task_id', $task_id)->get()->first();
@@ -52,7 +64,7 @@ class FormStatus extends Controller
 
     public function status($status){
         if ($status == 'Accepted')
-        return true;
+            return true;
 
         else{
             return false;

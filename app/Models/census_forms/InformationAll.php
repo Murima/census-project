@@ -9,6 +9,6 @@ class InformationAll extends Model
     //
     //protected $fillable = ['household_estate', 'houseNo', 'head_id','occupant'];
     protected $table = 'information_for_all';
-    public $timestamps = false;
+    //public $timestamps = false;
 
 }

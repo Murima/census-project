@@ -18,6 +18,7 @@ use App\Models\User;
 use Debugbar;
 use Eloquent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SurveyFormsController extends Controller
 {
@@ -41,10 +42,18 @@ class SurveyFormsController extends Controller
             $this->location = $forms['location']; //TODO check location at the moment delete
 
             //form identifiers
-            if ($forms['head_id']){
+
+            //dd($forms);
+            if (array_key_exists('head_id', $forms)){
                 $this->headId= $forms['head_id'];
                 $this->houseNo = $forms['houseNo'];
                 $this->occupantNo = $forms['occupant_No'];
+            }
+            else{
+                $form=InformationAll::orderBy('created_at','desc')->first();
+                $this->headId = $form->head_id;
+                $this->houseNo= $form->houseNo;
+                $this->occupantNo = $form->occupantNo;
             }
 
             $user = User::whereEmail($email)->get();
@@ -117,6 +126,9 @@ class SurveyFormsController extends Controller
          * store form to DB
          */
         Eloquent::unguard();
+
+        $forms['head_id']=$this->headId;
+        $forms['houseNo']=$this->houseNo;
 
         $all  = new FemalesAbove12($forms);
         $all->save();

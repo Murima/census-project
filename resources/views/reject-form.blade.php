@@ -25,9 +25,24 @@
     </div>
     <div class="panel-body">
         <div class="container col-md-6">
+            @if(count($errors)>0)
 
+                <div class="row">
+                    <div class="col-md-6">
 
-            {{ Form::open(array('action' => array('FormStatus@rejectForm',$formDetails->task_id, $formDetails->house_no), 'method'=>'post')) }}
+                        <ul>
+                            @foreach( $errors->all() as $error)
+                                <li class="text-danger">
+                                    {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            @endif
+
+            {{ Form::open(array('route' => array('reject-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
             <div class="form-group row">
                 <label for="location" class="col-sm-2 col-form-label">Location Submitted</label>
                 <div class="col-sm-10">
@@ -59,20 +74,25 @@
             <div class="form-group row">
                 <label for="reason" class="col-sm-2 col-form-label">Reason Rejected</label>
                 <div class="col-sm-10">
-                    {{ Form::select('Rejection Reason',$rejectOptions,Input::old('reason'), ['class'=>'form-control'] )}}
+                    {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
                 </div>
-        </div>
-        <div class="form-group row">
-            <label for="talkedto" class="col-sm-2 col-form-label">Talked to</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="talkedto" name="talkedto" value="">
             </div>
-        </div>
+            <div class="form-group row">
+                <label for="talkedto" class="col-sm-2 col-form-label">Talked to</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="talkedto" name="talkedto" value="">
+                </div>
+            </div>
 
-        <div class="form-group actions-row" >
-            {{ Form::button("<span class='glyphicon glyphicon-thumbs-down' ></span> Reject",
-                ['class' => 'btn btn-danger', 'onclick' => 'submit()']) }}
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-thumbs-down" style="margin-right: 5px"></i>Reject
+                    </button>
+                </div>
             </div>
+            <input type="hidden" name="_token" value="{{ Session::token() }}">
+
             {{Form::close()}}
         </div>
     </div>

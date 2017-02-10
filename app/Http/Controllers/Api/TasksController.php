@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\FormStatusModel;
 use App\Models\TasksModel;
 use App\Models\User;
 
@@ -22,6 +23,9 @@ class TasksController extends Controller {
     }
 
     public function getTasks($email){
+        /**
+         * get all the tasks for the enumerator
+         */
         $user = User::where('email',$email)->get()->first();
 
         if($user){
@@ -34,6 +38,15 @@ class TasksController extends Controller {
         return response(json([
             'error'=>'invalid_email',
         ]));
+    }
+
+    public function getTaskStatus($email){
+        /**
+         * get status of task and return
+         */
+        $user = User::where('email',$email)->get()->first();
+
+
     }
 
 
