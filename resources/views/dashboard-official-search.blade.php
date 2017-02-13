@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped success">
                         <thead>
                         <tr>
                             <th>First Name</th>

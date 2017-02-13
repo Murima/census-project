@@ -28,6 +28,7 @@ class SurveyFormsController extends Controller
     protected $occupantNo;
     protected $location;
     protected $task_id;
+    protected $date;
 
     public function receiveSurveyData($email, Request $request){
         /**
@@ -39,7 +40,7 @@ class SurveyFormsController extends Controller
             $forms = $request->form;
             $forms = json_decode($forms, true);
             $category = $forms['category'];
-            $this->location = $forms['location']; //TODO check location at the moment delete
+            $this->location = $forms['location']; //TODO check location
 
             //form identifiers
 
@@ -67,6 +68,7 @@ class SurveyFormsController extends Controller
             else{
                 $this->saveStatus($user, $status="Rejected", $category);
             }
+//TODO unset the columns that will not be saved.
 
             switch ($category){
 
@@ -207,27 +209,32 @@ class SurveyFormsController extends Controller
 
     }
 
-    protected function checkDate($date, $id){
+    protected function checkDate($dateSubmitted, $id){
         /**
          * check date of submission
          */
+        $this->date = $dateSubmitted;
+        $task = TasksModel::where('status', 'open')->where('date', $dateSubmitted)->get()->first();
 
-        $taskId= TasksModel::where('status', 'open')->min('task_id');
-        $task = TasksModel::where('status', 'open')->where('task_id', $taskId)->where('date', $date)->get();
+
 
         if ($task) {
             //task is found
-            $this->task_id = $taskId;
+            $this->task_id = $task->task_id;
             $task->stauts = 'closed';
-            $todayDate = date('m-d-y');
 
-            if ($todayDate == $date) {
+            $task->save();
+
+            $todayDate = date('j-m-Y');
+
+            if ($todayDate == $dateSubmitted) {
                 return true;
             } else {
                 return false;
             }
         }
         else{
+            $this->task_id=0;
             return false;
         }
 
@@ -243,7 +250,7 @@ class SurveyFormsController extends Controller
         $formStatus->house_no= $this->houseNo;
         $formStatus->task_id= $this->task_id;
         $formStatus->category=$category;
-        $formStatus->date= date('m/d/y');
+        $formStatus->date= $this->date;
         $formStatus->status=$status;
         $formStatus->location= $this->location;
         $formStatus->enumerator_id= $user[0]->id;
@@ -251,6 +258,11 @@ class SurveyFormsController extends Controller
 
         $formStatus->save();
 
+        $task = TasksModel::where('task_id', $this->task_id)->get();
+        if ($task){
+            $task->post_status = $status;
+            $task->save();
+        }
     }
 
 }

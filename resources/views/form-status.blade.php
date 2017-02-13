@@ -66,17 +66,23 @@
                         @if($formStatus[$i]->status=="Accepted")
                             <td>
                                 <a class="btn btn-sm btn-danger" role="button"
-                                   href="{{
+                                   {{--href="{{
                                        route('reject-form',['task_id'=>$formStatus[$i]->task_id,
                                         'house_no'=>$formStatus[$i]->house_no])
-                                       }}">
+                                       }}"--}}
+
+                                href="{{route('reject-form',['task_id'=>$formStatus[$i]->task_id,
+                                        'house_no'=>$formStatus[$i]->house_no])}}">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
                                     Reject
                                 </a>
                             </td>
                         @else
                             <td>
-                                <a class="btn btn-sm btn-info accept-specimen" href="javascript:void(0)">
+                                <a class="btn btn-sm btn-info accept-specimen" href="{{
+                                       route('accept-form',['task_id'=>$formStatus[$i]->task_id,
+                                        'house_no'=>$formStatus[$i]->house_no])
+                                       }}">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     Accept
                                 </a>

@@ -72,7 +72,8 @@ Route::get('official/search-user/delete-task/{task_id}/{id}', 'TaskListControlle
 
 Route::get('official/form/form-status', 'FormStatus@index');
 Route::any('official/form/reject-form/{task_id}/{house_no}', 'FormStatus@rejectForm')->name('reject-form');
+Route::any('official/form/accept-form/{task_id}/{house_no}', 'FormStatus@acceptForm')->name('accept-form');
 
 
 Route::get('official/show-graphs', 'ChartController@genderAgegroup');
-Route::get('official/show-graph', 'ChartController@genderAgegroup');
+Route::get('official/show-graph', 'ChartController@genderDistribution');

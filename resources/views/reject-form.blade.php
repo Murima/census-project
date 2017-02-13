@@ -12,7 +12,11 @@
             <div class="container-fluid">
                 <div class="row less-gutter">
                     <div class="col-md-11">
-                        <span class="glyphicon glyphicon-filter"></span> Reject Form
+                        @if(Route::is('reject-form'))
+                            <span class="glyphicon glyphicon-filter"></span> Reject Form
+                        @else
+                            <span class="glyphicon glyphicon-filter"></span> Accept Form
+                        @endif
                     </div>
                     <div class="col-md-1">
                         <a class="btn btn-sm btn-primary pull-right" href="#" onclick="window.history.back();return false;"
@@ -41,8 +45,12 @@
 
                 </div>
             @endif
+            @if(Route::is('reject-form'))
+                {{ Form::open(array('route' => array('reject-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
+            @else
+                {{ Form::open(array('route' => array('accept-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
 
-            {{ Form::open(array('route' => array('reject-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
+            @endif
             <div class="form-group row">
                 <label for="location" class="col-sm-2 col-form-label">Location Submitted</label>
                 <div class="col-sm-10">
@@ -74,7 +82,11 @@
             <div class="form-group row">
                 <label for="reason" class="col-sm-2 col-form-label">Reason Rejected</label>
                 <div class="col-sm-10">
-                    {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
+                    @if(Route::is('reject-form'))
+                        {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
+                    @else
+                        {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
+                    @endif
                 </div>
             </div>
             <div class="form-group row">
@@ -86,9 +98,15 @@
 
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-thumbs-down" style="margin-right: 5px"></i>Reject
-                    </button>
+                    @if(Route::is('reject-form'))
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-thumbs-down" style="margin-right: 5px"></i>Reject
+                        </button>
+                    @else
+                        <button type="submit" class="btn btn-info">
+                            <i class="fa fa-thumbs-up" style="margin-right: 5px"></i>Accept
+                        </button>
+                    @endif
                 </div>
             </div>
             <input type="hidden" name="_token" value="{{ Session::token() }}">
