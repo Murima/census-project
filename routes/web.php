@@ -14,8 +14,12 @@
 use App\Models\TasksModel;
 use App\Models\User;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/homepage', function () {
+    return view('static.index');
+});
+
+Route::get('/about', function () {
+    return view('static.about');
 });
 
 Route::post('/signup', 'UserController@signUp')->name('signup');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Khill\Lavacharts\Configs\DataTable;
-use Khill\Lavacharts\Lavacharts;
+
 use View;
 
 class ChartController extends Controller
@@ -12,8 +12,8 @@ class ChartController extends Controller
     //
     public  function testChart(){
 
-        $lava = new  Lavacharts();
-        $stocksTable = $lava->DataTable();
+        //$lava = new  Lava();
+        $stocksTable = Lava::DataTable();
 
         $stocksTable->addDateColumn('Day of Month')
             ->addNumberColumn('Projected')
@@ -36,7 +36,7 @@ class ChartController extends Controller
 
     public function genderDistribution(){
 
-        $lava = new  Lavacharts();
+        $lava = new  Lava();
         $population = $lava->DataTable();
 
         $population->addStringColumn("Gender")
@@ -57,7 +57,7 @@ class ChartController extends Controller
     }
 
     public function genderAgegroup(){
-        $lava = new  Lavacharts();
+        $lava = new  Lava();
         $population = $lava->DataTable();
 
         $population->addStringColumn('Age group')
