@@ -299,4 +299,8 @@ class UserController extends Controller
         }
     }
 
+    public function showUserProfile(){
+        return view('user-profile');
+    }
+
 }

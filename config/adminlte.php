@@ -112,7 +112,7 @@ return [
         'MENU',
         [
             'text'        => 'Profile',
-            'url'         => 'admin/pages',
+            'url'         => 'official/profile-page',
             'icon'        => 'user',
             'label'       => 4,
             'label_color' => 'success',
@@ -122,6 +122,11 @@ return [
             'text'    => 'Enumerator Management',
             'icon'    => 'group',
             'submenu' => [
+                [
+                    'text'    => 'Dashboard',
+                    'url'     => '/official/dashboard',
+                    'icon'    => 'dashcube',
+                ],
                 [
                     'text' => 'Create Task List',
                     'url'  => 'official/search-user',

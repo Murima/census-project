@@ -32,9 +32,11 @@
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <h3>HOME</h3>
-                <div id="chart-div" style="height: 500px;">
-
+                <div id="chart-div" style="height: 300px;">
                 </div>
+                @linechart('Stocks', 'chart-div');
+
+                {{--{{\Lava::render('LineChart', 'Stocks', 'chart-div') }}--}}
             </div>
             <div id="menu1" class="tab-pane fade">
                 <h3>Menu 1</h3>

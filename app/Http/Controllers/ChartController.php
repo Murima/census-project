@@ -6,38 +6,42 @@ use Illuminate\Http\Request;
 use Khill\Lavacharts\Configs\DataTable;
 
 use View;
+use Lava;
 
 class ChartController extends Controller
 {
     //
     public  function testChart(){
 
-        //$lava = new  Lava();
-        $stocksTable = Lava::DataTable();
+        $stocksTable = \Lava::DataTable();
 
         $stocksTable->addDateColumn('Day of Month')
             ->addNumberColumn('Projected')
             ->addNumberColumn('Official');
 
-        for ($a = 1; $a < 30; $a++) {
 
-            $stocksTable->addRow([
-                '2015-10-' . $a, rand(800, 1000), rand(800, 1000)
-            ]);
+
+
+// Random Data For Example
+
+        for ($a = 1; $a < 30; $a++)
+        {
+            $rowData = array(
+                "2014-8-$a", rand(800,1000), rand(800,1000)
+            );
+
+            $stocksTable->addRow($rowData);
         }
 
-        $chart =  $lava->LineChart('MyStocks', $stocksTable, ['title'=>'My Title']);
+        $Chart = \Lava::LineChart('Stocks', $stocksTable);
 
-        echo $lava->render('LineChart', 'MyStocks', 'chart-div');
-        //return view('show-graphs',['lava'=> $lava]);
-        //return view('show-graphs')->withLava($lava);
+
         return view('show-graphs');
     }
 
     public function genderDistribution(){
 
-        $lava = new  Lava();
-        $population = $lava->DataTable();
+        $population = Lava::DataTable();
 
         $population->addStringColumn("Gender")
             ->addNumberColumn("Male")
@@ -46,19 +50,19 @@ class ChartController extends Controller
         $population->addRow(['Total population', 10000])
             ->addRow(['Male', 4000])
             ->addRow(['Female', 6000]);
-        $lava->BarChart('GenderDistribution', $population, [
+        Lava::BarChart('GenderDistribution', $population, [
             'title'=>'Gender Distribution',
             'orientation'=>'horizontal',
             'barGroupWidth'=> '80%'
         ]);
 
-        echo $lava->render('BarChart', 'GenderDistribution', 'chart-div');
+        echo Lava::render('BarChart', 'GenderDistribution', 'chart-div');
         return view ('show-graphs');
     }
 
     public function genderAgegroup(){
-        $lava = new  Lava();
-        $population = $lava->DataTable();
+        //$lava = new  Lava();
+        $population = \Lava::DataTable();
 
         $population->addStringColumn('Age group')
             ->addNumberColumn('Percent');
@@ -72,7 +76,7 @@ class ChartController extends Controller
             ->addRow(['60-above', 2]);
 
 
-        $lava->PieChart('Agegroup', $population, [
+        \Lava::PieChart('Agegroup', $population, [
             'title'  => 'Population by Age group',
             'is3D'   => true,
             'slices' => [
@@ -82,7 +86,7 @@ class ChartController extends Controller
             ]
         ]);
 
-        echo $lava->render('PieChart', 'Agegroup', 'chart-div');
+        echo \Lava::render('PieChart', 'Agegroup', 'chart-div');
         return view ('show-graphs');
     }
 

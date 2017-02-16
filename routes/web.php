@@ -11,6 +11,7 @@
 |
 */
 
+use App\Models\FormStatusModel;
 use App\Models\TasksModel;
 use App\Models\User;
 
@@ -53,8 +54,13 @@ Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->nam
 Route::get('user/image/{filename}', 'UserController@getUserImage')->name('user-image');
 
 Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
-    return View::make('dashboard-official');
+    $status = FormStatusModel::all();
+    $tasks =TasksModel::all();
+    return View::make('dashboard-official')->with('tasks', $tasks)->with('status', $status);
 }]);
+
+Route::get('official/profile-page', 'UserController@showUserProfile');
+
 
 Route::get('official/search-user', 'TaskListController@listAllUsers')->name('official/search-user');
 Route::post('official/search-user', 'TaskListController@searchUser');
@@ -79,5 +85,5 @@ Route::any('official/form/reject-form/{task_id}/{house_no}', 'FormStatus@rejectF
 Route::any('official/form/accept-form/{task_id}/{house_no}', 'FormStatus@acceptForm')->name('accept-form');
 
 
-Route::get('official/show-graphs', 'ChartController@genderAgegroup');
+Route::get('official/show-graphs', 'ChartController@testChart');
 Route::get('official/show-graph', 'ChartController@genderDistribution');

@@ -1,4 +1,4 @@
-@extends('dashboard-official')
+@extends('adminlte::page')
 
 @section('title', 'Create Tasklists')
 @section('content_header')

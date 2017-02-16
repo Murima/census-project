@@ -241,7 +241,7 @@ return [
         'HTML'     => Collective\Html\HtmlFacade::class,
         'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
         'Ekko' => Laravelista\Ekko\Facades\Ekko::class,
-        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class
 
     ],
 
