@@ -77,4 +77,64 @@
 
     </div>
 
+    <div class="panel panel-info">
+        <div class="panel-heading ">
+            <span class="glyphicon glyphicon-eye-open"></span>
+            View References
+
+        </div>
+
+
+        <div class="panel-body">
+
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th class="col-md-1">Referenced By</th>
+                    <th>Location Submitted</th>
+                    <th class="col-md-1">House No</th>
+                    <th class="col-md-2">Form Category</th>
+                    <th>Time</th>
+                    <th>Reason Given</th>
+
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @if(isset($references))
+
+                    @for($i=0; $i<count($references); $i++)
+                        @if($references[$i]->official_id == Auth::id())
+
+                            <tr>
+                                <td>{{$references[$i]->referenced_by}}</td>
+                                <td>{{$formDetails[$i][0]->location}}</td>
+                                <td>{{$formDetails[$i][0]->house_no}}</td>
+                                <td>{{$formDetails[$i][0]->category}}</td>
+                                <td>{{$formDetails[$i][0]->time}}</td>
+                                <td>{{$rejectReason->getReason($references[$i]->status_id,$formDetails[$i][0]->reason_id)}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger" role="button"
+                                       href="{{route('decline-form',['status_id'=>$references[$i]->status_id])}}">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        Decline
+                                    </a>
+                                    <a class="btn btn-sm btn-success" role="button"
+                                       href="{{route('confirm-form',['status_id'=>$references[$i]->status_id])}}">
+                                        <span class="glyphicon glyphicon-check"></span>
+                                        Confirm
+                                    </a>
+                                </td>
+
+                            </tr>
+                        @endif
+
+                    @endfor
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 @stop

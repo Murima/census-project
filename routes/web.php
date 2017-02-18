@@ -26,6 +26,7 @@ Route::get('/about', function () {
 Route::post('/signup', 'UserController@signUp')->name('signup');
 
 Route::any( '/signin', 'UserController@signIn')->name('signin');
+Route::post('/signout', 'UserController@signOut')->name('signout');
 
 Route::get('admin/dashboard', 'UserController@getDashboard')->name('dashboard');
 
@@ -53,11 +54,9 @@ Route::post('admin/register-enumerator', 'UserController@signUpEnumerator')->nam
 
 Route::get('user/image/{filename}', 'UserController@getUserImage')->name('user-image');
 
-Route::get('official/dashboard/', ['as'=> 'dashboard-official', function (){
-    $status = FormStatusModel::all();
-    $tasks =TasksModel::all();
-    return View::make('dashboard-official')->with('tasks', $tasks)->with('status', $status);
-}]);
+Route::get('official/dashboard/', 'DashboardController@index')->name('dashboard-official');
+Route::any('official/reference-form/decline/{status_id}', 'DashboardController@declineForm')->name('decline-form');
+Route::any('official/reference-form/accept', 'DashboardController@confirmForm')->name('confirm-form');
 
 Route::get('official/profile-page', 'UserController@showUserProfile');
 
@@ -81,9 +80,14 @@ Route::put('official/search-user/edit-task/{id}/{task_id}', 'TaskListController@
 Route::get('official/search-user/delete-task/{task_id}/{id}', 'TaskListController@deleteTask')->name('delete-task');
 
 Route::get('official/form/form-status', 'FormStatus@index');
-Route::any('official/form/reject-form/{task_id}/{house_no}', 'FormStatus@rejectForm')->name('reject-form');
-Route::any('official/form/accept-form/{task_id}/{house_no}', 'FormStatus@acceptForm')->name('accept-form');
+Route::any('official/form/reject-form/{task_id}/{house_no}/{status_id}', 'FormStatus@rejectForm')->name('reject-form');
+Route::any('official/form/accept-form/{task_id}/{house_no}/{status_id}', 'FormStatus@acceptForm')->name('accept-form');
 
-
-Route::get('official/show-graphs', 'ChartController@testChart');
+Route::get('official/show-graphs/{category}', 'ChartController@index')->name('show-graphs');
+/*Route::get('official/show-graphs', 'ChartController@testChart');*/
 Route::get('official/show-graph', 'ChartController@genderDistribution');
+
+Route::get('official/testme/{cat?}', function ($cat = null) {
+    return view('success');
+});
+//Route::get('official/testme/{cat?}', 'FormStatus@testMe')->name('testme');

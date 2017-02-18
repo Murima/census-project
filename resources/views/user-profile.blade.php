@@ -10,28 +10,46 @@
 
     <div class="row">
 
-        <div class="col-md-6">
-            <!-- Widget: user widget style 1 -->
-            <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua-gradient">
-                    <div class="widget-user-image">
-                        <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+        <div class="col-md-30">
+
+            @if(Storage::disk('local')->has($user->firstname.'-'.$user->id.'.jpg'))
+                <div class="col-md-1 panel panel-warning"
+                     style="float:left; outline: 1px solid orange; height: 600px; width: 100%;">
+
+                    <div class="panel-heading ">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Profile Image
                     </div>
-                    <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username">Nadia Carmichael</h3>
-                    <h5 class="widget-user-desc">Lead Developer</h5>
+
+                    <div class="col-md-2">
+                        <img src="{{ route('user-image', ['filename'=>$user->firstname.'-'.$user->id.'.jpg']) }}" alt=""
+                        >
+                    </div>
+
+
+                    <div class="col-md-6 style=" style="margin-top: 1%;" >
+                        <p class="view-striped"><strong>First Name</strong> {{$user->firstname}}</p>
+                        <p class="view-striped"><strong>Last Name</strong> {{$user->lastname}}</p>
+                        <p class="view-striped"><strong>ID</strong> {{$user->id}}</p>
+                        <p class="view-striped"><strong>County</strong> {{$user->county}}</p>
+                        <p class="view-striped"><strong>Ward</strong> {{$user->ward}}</p>
+                        <p class="view-striped"><strong>Phone</strong> {{$user->phone_number}}</p>
+                        {{ $errors->has('phoneno') ? 'has-error':'' }}
+                        <p class="view-striped"><strong>Role</strong>
+                            @if($user->is_official==1)
+                                Official
+                            @endif
+
+                        </p>
+                        <p class="view-striped"><strong>Name</strong> {{$user->firstname}}</p>
+
+
+                    </div>
+
                 </div>
-                <div class="box-footer no-padding">
-                    <ul class="nav nav-stacked">
-                        <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span></a></li>
-                        <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
-                        <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
-                        <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.widget-user -->
+
+            @endif
+
         </div>
 
     </div>

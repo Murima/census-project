@@ -58,7 +58,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>NBS</h1>
+                <h1>KNBS</h1>
                 <h2>We Create Cool Stuff</h2>
                 <div class="spacer"></div>
                 <i class="fa fa-angle-down"></i>
@@ -147,9 +147,6 @@
             </div>
             <div class="col-lg-2">
                 <img src="assets/img/clients/hivaids.jpg" alt="">
-            </div>
-            <div class="col-lg-2">
-                <img src="assets/img/clients/c05.gif" alt="">
             </div>
         </div><!-- row -->
     </div><!-- container -->

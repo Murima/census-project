@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="assets/img/admin-img.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Murima</p>
@@ -23,15 +23,37 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active treeview">
                 <a href="{{ route('dashboard') }}">
-                    <i class="fa fa-users"></i> <span>Registration Module</span>
+                    <i class="fa fa-users"></i>
+                    <span>Registration Module</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class=" {{isActiveURL('admin/create-census')}}"><a href="{{ route('create-census') }}"><i class="fa fa-calendar-o"></i> Register census Event</a></li>
-                    <li class=" {{ isActiveURL('/admin/register-official') }}"><a href="{{ route('register-official') }}"><i class="fa fa-user-plus"></i> Register Census Official</a></li>
-                    <li class=" {{ isActiveURL('/admin/register-enumerator') }}"><a href="{{ route('register-enumerator') }}"><i class="fa fa-user-plus"></i> Register Enumerator</a></li>
+                    <li class=" {{isActiveURL('admin/create-census')}}"><a href="{{ route('create-census') }}">
+                            <i class="fa fa-calendar-o"></i> Register census Event</a>
+                    </li>
+                    <li class=" {{ isActiveURL('/admin/register-official') }}"><a href="{{ route('register-official') }}">
+                            <i class="fa fa-user-plus"></i> Register Census Official</a>
+                    </li>
+                    <li class=" {{ isActiveURL('/admin/register-enumerator') }}"><a href="{{ route('register-enumerator') }}">
+                            <i class="fa fa-user-plus"></i> Register Enumerator</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="active treeview">
+                <a href="{{ route('dashboard') }}">
+                    <i class="fa fa-user"></i>
+                    <span>User Management</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class=" {{isActiveURL('admin/create-census')}}"><a href="{{ route('view-users') }}">
+                            <i class="fa fa-eye"></i> View Users</a>
+                    </li>
 
                 </ul>
             </li>

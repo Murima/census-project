@@ -184,7 +184,7 @@ desired effect
 
                             <div class="form-group" {{ $errors->has('ID') ? 'has-error':'' }}>
                                 <label for="ID"> ID</label>
-                                <input class="form-control" name="ID" type="text" id="ID">
+                                <input class="form-control" name="ID" type="number" id="ID">
 
                             </div>
 
@@ -204,6 +204,17 @@ desired effect
                             <div class="form-group" {{ $errors->has('county') ? 'has-error':'' }}>
                                 <label for="county"> County</label>
                                 <input class="form-control" name="county" type="text" id="county">
+
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('phoneno') ? 'has-error':'' }}>
+                                <label for="phoneno"> Phone No</label>
+                                <input class="form-control" name="phoneno" type="text" id="phoneno">
+
+                            </div>
+                            <div class="form-group" {{ $errors->has('phoneno') ? 'has-error':'' }}>
+                                <label for="ward"> ward</label>
+                                <input class="form-control" name="ward" type="text" id="ward">
 
                             </div>
 

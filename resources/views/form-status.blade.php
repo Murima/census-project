@@ -55,6 +55,12 @@
                                 </span>
                             </td>
 
+                        @elseif($formStatus[$i]->status=="Pending")
+                            <td>
+                                    <span id="tdID"  class='label label-warning'>
+                                Pending</span>
+
+                            </td>
                         @else
                             <td>
                                     <span id="tdID"  class='label label-danger'>
@@ -66,13 +72,10 @@
                         @if($formStatus[$i]->status=="Accepted")
                             <td>
                                 <a class="btn btn-sm btn-danger" role="button"
-                                   {{--href="{{
-                                       route('reject-form',['task_id'=>$formStatus[$i]->task_id,
-                                        'house_no'=>$formStatus[$i]->house_no])
-                                       }}"--}}
 
-                                href="{{route('reject-form',['task_id'=>$formStatus[$i]->task_id,
-                                        'house_no'=>$formStatus[$i]->house_no])}}">
+                                   href="{{route('reject-form',['task_id'=>$formStatus[$i]->task_id,
+                                        'house_no'=>$formStatus[$i]->house_no,
+                                         'status_id'=>$formStatus[$i]->status_id])}}">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
                                     Reject
                                 </a>
@@ -81,7 +84,8 @@
                             <td>
                                 <a class="btn btn-sm btn-info accept-specimen" href="{{
                                        route('accept-form',['task_id'=>$formStatus[$i]->task_id,
-                                        'house_no'=>$formStatus[$i]->house_no])
+                                        'house_no'=>$formStatus[$i]->house_no,
+                                        'status_id'=>$formStatus[$i]->status_id])
                                        }}">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     Accept

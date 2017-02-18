@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -57,6 +58,7 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'password' => $request['password']
             );
+
             $user = User::where('email',$request->get('email'))->first();
             if($user->is_admin == 1) {
                 if (\Auth::attempt($credentials)) {
@@ -86,7 +88,6 @@ class UserController extends Controller
 
     public function getDashboard() {
         $id = \App\Models\CensusId::max('id')+10010;
-
         return view('dashboard')->withId($id);
 
     }
@@ -110,6 +111,9 @@ class UserController extends Controller
             $email = $request['email'];
             $password = bcrypt($request['password']);
             $county = $request['county'];
+            $phoneno = $request['phoneno'];
+            $ward = $request->get('ward');
+
 
             $file = $request->file('image');
             $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
@@ -128,6 +132,8 @@ class UserController extends Controller
             $user-> email = $email;
             $user-> password= $password;
             $user-> county = $county;
+            $user->phone_number=$phoneno;
+            $user->ward = $ward;
 
 
             $user->save();
@@ -235,6 +241,8 @@ class UserController extends Controller
             $email = $request['email'];
             $password = bcrypt($request['password']);
             $county = $request['county'];
+            $phoneno = $request['phoneno'];
+            $ward = $request->get('ward');
 
             $file = $request->file('image');
             $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
@@ -250,9 +258,14 @@ class UserController extends Controller
             $user-> lastname = $lastname;
             $user-> id = $id;
             $user-> email = $email;
-            $user-> password= $password;
             $user-> county = $county;
+            $user->phone_number= $phoneno;
+            $user->ward= $ward;
 
+            if ($request['password']!=''){
+                $user-> password= $password;
+
+            }
             if ($user->is_official){
                 $user->is_official=1;
             }
@@ -263,11 +276,9 @@ class UserController extends Controller
                 $supervisor_phone = $request->get('supervisor_phone');
                 $ward= $request->get('ward');
 
-                $user->phone_number=$phone_number;
                 $user->headoffice= $headoffice;
                 $user->reportsto=$reportsto;
                 $user->supervisor_phone=$supervisor_phone;
-                $user->ward=$ward;
                 $user->is_enumerator=1;
             }
 
@@ -300,7 +311,14 @@ class UserController extends Controller
     }
 
     public function showUserProfile(){
-        return view('user-profile');
+        $user = User::find(Auth::id());
+        return view('user-profile')->with('user', $user);
+    }
+
+    public function signOut(){
+        Auth::logout();
+
+        return redirect()->route('signin');
     }
 
 }

@@ -87,7 +87,7 @@ return [
 
     'dashboard_url' => 'dashboard',
 
-    'logout_url' => 'logout',
+    'logout_url' => 'signout',
 
     'logout_method' => null,
 
@@ -114,7 +114,7 @@ return [
             'text'        => 'Profile',
             'url'         => 'official/profile-page',
             'icon'        => 'user',
-            'label'       => 4,
+            'label'       => 0,
             'label_color' => 'success',
         ],
         'MAIN NAVIGATION',
@@ -131,11 +131,6 @@ return [
                     'text' => 'Create Task List',
                     'url'  => 'official/search-user',
                     'icon'    => 'tasks',
-                ],
-                [
-                    'text'    => 'List Enumerators',
-                    'url'     => '#',
-                    'icon'    => 'list-ol',
                 ],
             ],
         ],

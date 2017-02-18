@@ -58,6 +58,7 @@ class SurveyFormsController extends Controller
             }
 
             $user = User::whereEmail($email)->get();
+
             $formStatus=$this->checkDate($forms['date'], $user[0]->id);
 
             if($formStatus){
@@ -207,6 +208,7 @@ class SurveyFormsController extends Controller
          * check location with task location
          */
 
+
     }
 
     protected function checkDate($dateSubmitted, $id){
@@ -214,7 +216,7 @@ class SurveyFormsController extends Controller
          * check date of submission
          */
         $this->date = $dateSubmitted;
-        $task = TasksModel::where('status', 'open')->where('date', $dateSubmitted)->get()->first();
+        $task = TasksModel::where('status', 'open')->where('date', $dateSubmitted)->first();
 
 
 
@@ -258,7 +260,7 @@ class SurveyFormsController extends Controller
 
         $formStatus->save();
 
-        $task = TasksModel::where('task_id', $this->task_id)->get();
+        $task = TasksModel::where('task_id', $this->task_id)->first();
         if ($task){
             $task->post_status = $status;
             $task->save();

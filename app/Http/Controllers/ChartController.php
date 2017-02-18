@@ -11,6 +11,20 @@ use Lava;
 class ChartController extends Controller
 {
     //
+    public  function index($category){
+
+        switch ($category) {
+            case 1:
+                $this->genderDistribution();
+                break;
+            case 2:
+                break;
+            default:
+                $this->genderDistribution();
+                break;
+        }
+
+    }
     public  function testChart(){
 
         $stocksTable = \Lava::DataTable();
@@ -19,10 +33,7 @@ class ChartController extends Controller
             ->addNumberColumn('Projected')
             ->addNumberColumn('Official');
 
-
-
-
-// Random Data For Example
+        // Random Data For Example
 
         for ($a = 1; $a < 30; $a++)
         {
@@ -35,13 +46,14 @@ class ChartController extends Controller
 
         $Chart = \Lava::LineChart('Stocks', $stocksTable);
 
+        echo \Lava::render('LineChart', 'Stocks', 'chart-div');
 
         return view('show-graphs');
     }
 
     public function genderDistribution(){
 
-        $population = Lava::DataTable();
+        /*$population = \Lava::DataTable();
 
         $population->addStringColumn("Gender")
             ->addNumberColumn("Male")
@@ -50,13 +62,16 @@ class ChartController extends Controller
         $population->addRow(['Total population', 10000])
             ->addRow(['Male', 4000])
             ->addRow(['Female', 6000]);
-        Lava::BarChart('GenderDistribution', $population, [
+
+        $Chart= \Lava::BarChart('GenderDistribution', $population, [
             'title'=>'Gender Distribution',
             'orientation'=>'horizontal',
             'barGroupWidth'=> '80%'
         ]);
 
-        echo Lava::render('BarChart', 'GenderDistribution', 'chart-div');
+
+        echo \Lava::render('BarChart', 'GenderDistribution', 'chart-div');*/
+
         return view ('show-graphs');
     }
 

@@ -46,9 +46,9 @@
                 </div>
             @endif
             @if(Route::is('reject-form'))
-                {{ Form::open(array('route' => array('reject-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
+                {{ Form::open(array('route' => array('reject-form',$formDetails->task_id, $formDetails->house_no, $formDetails->status_id), 'method'=>'put')) }}
             @else
-                {{ Form::open(array('route' => array('accept-form',$formDetails->task_id, $formDetails->house_no), 'method'=>'put')) }}
+                {{ Form::open(array('route' => array('accept-form',$formDetails->task_id, $formDetails->house_no, $formDetails->status_id), 'method'=>'put')) }}
 
             @endif
             <div class="form-group row">
@@ -80,19 +80,22 @@
             </div>
 
             <div class="form-group row">
-                <label for="reason" class="col-sm-2 col-form-label">Reason Rejected</label>
-                <div class="col-sm-10">
-                    @if(Route::is('reject-form'))
+                @if(Route::is('reject-form'))
+
+                    <label for="reason" class="col-sm-2 col-form-label">Reason Rejected</label>
+                    <div class="col-sm-10">
                         {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
-                    @else
-                        {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
-                    @endif
-                </div>
+                        @else
+                            <label for="reason" class="col-sm-2 col-form-label">Reason Accepted</label>
+                            <div class="col-sm-10">
+                            {{ Form::select('reason',$rejectOptions,Input::old('reason'),['class'=>'form-control'] )}}
+                        @endif
+                    </div>
             </div>
             <div class="form-group row">
                 <label for="talkedto" class="col-sm-2 col-form-label">Talked to</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="talkedto" name="talkedto" value="">
+                    {{ Form::select('talkedto',$userList,Input::old('talkedto'),['class'=>'form-control'] )}}
                 </div>
             </div>
 

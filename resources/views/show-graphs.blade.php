@@ -15,7 +15,7 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Population
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">By age distribution</a></li>
+                        <li><a href="{{route('show-graphs',['category'=>1])}}">By gender distribution</a></li>
                         <li><a href="#">By sex and school attendance</a></li>
                         <li><a href="#">JavaScript</a></li>
                     </ul>
@@ -34,9 +34,9 @@
                 <h3>HOME</h3>
                 <div id="chart-div" style="height: 300px;">
                 </div>
-                @linechart('Stocks', 'chart-div');
+                {{--@linechart('Stocks', 'chart-div');--}}
+                {{--@barchart('GenderDistribution', 'chart-div');--}}
 
-                {{--{{\Lava::render('LineChart', 'Stocks', 'chart-div') }}--}}
             </div>
             <div id="menu1" class="tab-pane fade">
                 <h3>Menu 1</h3>

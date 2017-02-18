@@ -2,5 +2,7 @@
 <div class="alert alert-success">
 
     <strong>Success!</strong>
-    {{ $numberofEvents }}
+    @if(isset($numberofEvents))
+        {{ $numberofEvents }}
+    @endif
 </div>

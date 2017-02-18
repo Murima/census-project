@@ -112,7 +112,6 @@ desired effect
                     </div>
                 </div>
                 <div class="panel-body">
-                    <!-- Registered users widget -->
                     <!-- small box -->
                     @if(Storage::disk('local')->has($user->firstname.'-'.$user->id.'.jpg'))
                         <div class="col-md-5 panel panel-warning" style="float:right; outline: 1px solid orange;">
@@ -210,13 +209,23 @@ desired effect
 
                         <div class="form-group">
                             <label for="Password"> Password</label>
-                            <input class="form-control" name="password" type="password" id="password">
+                            <input class="form-control" name="password" type="password" id="password" value="">
 
                         </div>
 
                         <div class="form-group" {{ $errors->has('county') ? 'has-error':'' }}>
                             <label for="county"> County</label>
                             <input class="form-control" name="county" type="text" id="county" value="{{$user->county}}">
+
+                        </div>
+                        <div class="form-group" {{ $errors->has('phoneno') ? 'has-error':'' }}>
+                            <label for="phoneno"> Phone No</label>
+                            <input class="form-control" name="phoneno" type="text" id="phoneno" value="{{$user->phone_number}}">
+
+                        </div>
+                        <div class="form-group" {{ $errors->has('ward') ? 'has-error':'' }}>
+                            <label for="ward"> Ward</label>
+                            <input class="form-control" name="ward" type="text" id="ward" value="{{$user->ward}}">
 
                         </div>
                         @if($user->is_enumerator)

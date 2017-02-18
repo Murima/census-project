@@ -10,4 +10,8 @@ class FormStatusModel extends Model
     public $timestamps = false;
     protected $table= 'form_status';
     protected $primaryKey = 'status_id';
+
+    public function getDetail($statusID){
+
+    }
 }
