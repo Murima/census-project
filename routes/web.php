@@ -56,7 +56,7 @@ Route::get('user/image/{filename}', 'UserController@getUserImage')->name('user-i
 
 Route::get('official/dashboard/', 'DashboardController@index')->name('dashboard-official');
 Route::any('official/reference-form/decline/{status_id}', 'DashboardController@declineForm')->name('decline-form');
-Route::any('official/reference-form/accept', 'DashboardController@confirmForm')->name('confirm-form');
+Route::any('official/reference-form/confirm', 'DashboardController@confirmForm')->name('confirm-form');
 
 Route::get('official/profile-page', 'UserController@showUserProfile');
 

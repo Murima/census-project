@@ -9,6 +9,8 @@ use App\Models\TasksModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use View;
 
 class DashboardController extends Controller
@@ -21,10 +23,17 @@ class DashboardController extends Controller
 
         $references = ReferenceModel::all();
         $rejectReason = new RejectionReason();
+        $count = 0;
 
         foreach ($references as $reference){
             $formDetails[] = FormStatusModel::where('status_id',$reference->status_id)->get();
+
+            if ($reference->official_id == Auth::id()){
+                $count+=1;
+            }
         }
+
+        Config::set('adminlte.menu.1.label', $count);
 
         return View::make('dashboard-official')->with('tasks', $tasks)
             ->with('status', $status)

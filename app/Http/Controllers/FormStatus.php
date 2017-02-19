@@ -107,9 +107,8 @@ class FormStatus extends Controller
         return view('reject-form')->with('formDetails',$formDetails)
             ->with('rejectOptions', $rejectOptions)
             ->with('userList', $userList);
-
-
     }
+
 
     private function saveFormReference($request, $taskId, $houseNo, $status_id, $previous)
     {

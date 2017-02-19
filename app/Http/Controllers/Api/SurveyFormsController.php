@@ -29,6 +29,8 @@ class SurveyFormsController extends Controller
     protected $location;
     protected $task_id;
     protected $date;
+    protected $isSaved;
+    protected $hasTask;
 
     public function receiveSurveyData($email, Request $request){
         /**
@@ -59,17 +61,15 @@ class SurveyFormsController extends Controller
 
             $user = User::whereEmail($email)->get();
 
-            $formStatus=$this->checkDate($forms['date'], $user[0]->id);
+            /*$formStatus=$this->checkDate($forms['date'], $user[0]->id);*/
 
-            if($formStatus){
 
-                $this->saveStatus($user,$status="Accepted", $category);
-
-            }
-            else{
-                $this->saveStatus($user, $status="Rejected", $category);
-            }
 //TODO unset the columns that will not be saved.
+
+            unset($forms['date']);
+            unset($forms['category']);
+            $forms['head_id']=$this->headId;
+            $forms['house_no']=$this->houseNo;
 
             switch ($category){
 
@@ -97,8 +97,21 @@ class SurveyFormsController extends Controller
                 case 8:
                     $this->personsDisabilities($forms);
                     break;
-
             }
+            /* if ($this->isSaved){
+                 if($formStatus){
+
+                     $this->saveStatus($user,$status="Accepted", $category);
+
+                 }
+                 else{
+                     $this->saveStatus($user, $status="Rejected", $category);
+                 }
+
+             }*/
+            /*else{
+                return response()->json(['error'=>'error in saving'], 401);
+            }*/
 
 
             return response()->json(['success' => 'Hurray bro!!'], 200);
@@ -118,10 +131,11 @@ class SurveyFormsController extends Controller
          */
 
         Eloquent::unguard();
-        unset($forms['date']);
 
         $all = new InformationAll($forms);
-        $all->save();
+        if($all->save()){
+            $this->isSaved=true;
+        }
 
     }
     protected function femalesAbove12($forms){
@@ -130,11 +144,12 @@ class SurveyFormsController extends Controller
          */
         Eloquent::unguard();
 
-        $forms['head_id']=$this->headId;
-        $forms['houseNo']=$this->houseNo;
-
         $all  = new FemalesAbove12($forms);
-        $all->save();
+        $ocuuNo = $this->addOccupantNo($all, $forms['head_id']);
+        $forms['occupant_no']= $ocuuNo;
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
     protected function personsAbove3($forms){
@@ -143,9 +158,14 @@ class SurveyFormsController extends Controller
          */
         Eloquent::unguard();
 
+        unset($forms['location']);
 
         $all  = new PersonsAbove3($forms);
-        $all->save();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
+
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
     protected function informationICT($forms){
@@ -154,20 +174,30 @@ class SurveyFormsController extends Controller
          */
         Eloquent::unguard();
 
-
         $all  = new InformationOnICT($forms);
-        $all->save();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
+
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
     protected function personsDisabilities($forms){
         /**
          * store form to DB
          */
+        unset($forms['location']);
+        $forms['head_id']=$this->headId;
+        $forms['house_no']=$this->houseNo;
 
         Eloquent::unguard();
 
         $all  = new PersonsWithDisabilities($forms);
-        $all->save();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
+
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
     protected function labourForce($forms){
@@ -179,7 +209,11 @@ class SurveyFormsController extends Controller
         Eloquent::unguard();
 
         $all  = new LabourForce($forms);
-        $all->save();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
+
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
     protected function householdAssets($forms){
@@ -190,7 +224,9 @@ class SurveyFormsController extends Controller
 
 
         $all  = new HouseholdAssets($forms);
-        $all->save();
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
     protected function householdConditions($forms){
         /**
@@ -200,9 +236,25 @@ class SurveyFormsController extends Controller
 
 
         $all  = new HouseholdConditions($forms);
-        $all->save();
+        if($all->save()){
+            $this->isSaved=true;
+        }
     }
 
+    protected function addOccupantNo($model, $headId){
+        /**
+         * increment the occupant_no
+         */
+
+        $exists =$model->where('head_id', $headId)->first();
+        if ($exists){
+            return $exists->occupant_no= $exists->occupant_no+1;
+        }
+        else{
+            return 1;
+        }
+
+    }
     protected function checkLocation(){
         /**
          * check location with task location
@@ -216,7 +268,9 @@ class SurveyFormsController extends Controller
          * check date of submission
          */
         $this->date = $dateSubmitted;
-        $task = TasksModel::where('status', 'open')->where('date', $dateSubmitted)->first();
+        $task = TasksModel::where('status', 'open')
+            ->where('date', $dateSubmitted)
+            ->where('enumerator_id', $id)->first();
 
 
 
@@ -235,12 +289,22 @@ class SurveyFormsController extends Controller
                 return false;
             }
         }
-        else{
-            $this->task_id=0;
+        else{//get the min id of task undone
+            $taskAssumed=TasksModel::where('status', 'open')
+                ->where('enumerator_id',$id)
+                ->orderBy('task_id')->first();
+            if ($taskAssumed){
+                $this->task_id=$taskAssumed->task_id;
+                $taskAssumed->status='closed';
+                $taskAssumed->save();
+            }
+            $this->hasTask=false;
+
             return false;
         }
 
     }
+
 
     protected function saveStatus($user,$status, $category){
         /**
@@ -258,12 +322,13 @@ class SurveyFormsController extends Controller
         $formStatus->enumerator_id= $user[0]->id;
         $formStatus->time= date('h:m:s',time());
 
-        $formStatus->save();
 
         $task = TasksModel::where('task_id', $this->task_id)->first();
         if ($task){
             $task->post_status = $status;
             $task->save();
+            $formStatus->save();
+
         }
     }
 

@@ -27,21 +27,32 @@
                     </div>
 
 
-                    <div class="col-md-6 style=" style="margin-top: 1%;" >
-                        <p class="view-striped"><strong>First Name</strong> {{$user->firstname}}</p>
-                        <p class="view-striped"><strong>Last Name</strong> {{$user->lastname}}</p>
-                        <p class="view-striped"><strong>ID</strong> {{$user->id}}</p>
-                        <p class="view-striped"><strong>County</strong> {{$user->county}}</p>
-                        <p class="view-striped"><strong>Ward</strong> {{$user->ward}}</p>
-                        <p class="view-striped"><strong>Phone</strong> {{$user->phone_number}}</p>
+                    <div class="col-lg-6 style=" style="margin-top: 1%;" >
+                        <p class="view-striped"><strong>First Name</strong> &nbsp;&nbsp; {{$user->firstname}}</p>
+                        <p class="view-striped"><strong>Last Name</strong> &nbsp;&nbsp; {{$user->lastname}}</p>
+                        <p class="view-striped"><strong>ID</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{$user->id}}</p>
+                        <p class="view-striped"><strong>County</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{$user->county}}</p>
+                        <p class="view-striped"><strong>Ward</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{$user->ward}}</p>
+                        <p class="view-striped"><strong>Phone</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{$user->phone_number}}</p>
                         {{ $errors->has('phoneno') ? 'has-error':'' }}
                         <p class="view-striped"><strong>Role</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             @if($user->is_official==1)
                                 Official
                             @endif
 
                         </p>
-                        <p class="view-striped"><strong>Name</strong> {{$user->firstname}}</p>
+                        {{--<p class="view-striped"><strong>Name</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{$user->firstname}}</p>--}}
 
 
                     </div>

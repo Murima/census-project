@@ -18,7 +18,10 @@ class CreatePersonsAbove3 extends Migration
         {
             $table->string('education_status');
             $table->integer('highest_education_level');
-            $table->string('category');
+            $table->integer('occupant_no');
+            $table->integer('head_id');
+            $table->string('house_no');
+            $table->primary(array('occupant_no', 'head_id', 'house_no'));
 
         });
     }
