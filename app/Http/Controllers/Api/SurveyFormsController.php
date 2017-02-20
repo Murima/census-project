@@ -59,17 +59,12 @@ class SurveyFormsController extends Controller
                 $this->occupantNo = $form->occupantNo;
             }
 
-            $user = User::whereEmail($email)->get();
 
             /*$formStatus=$this->checkDate($forms['date'], $user[0]->id);*/
-
-
 //TODO unset the columns that will not be saved.
 
-            unset($forms['date']);
             unset($forms['category']);
             $forms['head_id']=$this->headId;
-            $forms['house_no']=$this->houseNo;
 
             switch ($category){
 
@@ -98,20 +93,24 @@ class SurveyFormsController extends Controller
                     $this->personsDisabilities($forms);
                     break;
             }
-            /* if ($this->isSaved){
-                 if($formStatus){
+            $user = User::whereEmail($email)->first();
 
-                     $this->saveStatus($user,$status="Accepted", $category);
+            $formStatus= $this->checkDate($forms['date'], $user->id);
 
-                 }
-                 else{
-                     $this->saveStatus($user, $status="Rejected", $category);
-                 }
+            if ($this->isSaved){
+                if($formStatus){
 
-             }*/
-            /*else{
+                    $this->saveStatus($user,$status="Accepted", $category);
+
+                }
+                else{
+                    $this->saveStatus($user, $status="Rejected", $category);
+                }
+
+            }
+            else{
                 return response()->json(['error'=>'error in saving'], 401);
-            }*/
+            }
 
 
             return response()->json(['success' => 'Hurray bro!!'], 200);
@@ -131,6 +130,8 @@ class SurveyFormsController extends Controller
          */
 
         Eloquent::unguard();
+        $forms['houseNo']=$this->houseNo;
+        unset($forms['date']);
 
         $all = new InformationAll($forms);
         if($all->save()){
@@ -143,10 +144,17 @@ class SurveyFormsController extends Controller
          * store form to DB
          */
         Eloquent::unguard();
+        unset($forms['date']);
+        unset($forms['houseNo']);
+        $forms['house_no']=$this->houseNo;
 
-        $all  = new FemalesAbove12($forms);
+        $all= new FemalesAbove12();
         $ocuuNo = $this->addOccupantNo($all, $forms['head_id']);
         $forms['occupant_no']= $ocuuNo;
+
+        $all  = new FemalesAbove12($forms);
+
+
         if($all->save()){
             $this->isSaved=true;
         }
@@ -157,11 +165,15 @@ class SurveyFormsController extends Controller
          * store form to DB
          */
         Eloquent::unguard();
-
+        unset($forms['date']);
+        unset($forms['houseNo']);
         unset($forms['location']);
+        $forms['house_no']=$this->houseNo;
+
+        $all = new PersonsAbove3();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         $all  = new PersonsAbove3($forms);
-        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         if($all->save()){
             $this->isSaved=true;
@@ -173,9 +185,15 @@ class SurveyFormsController extends Controller
          * store form to DB
          */
         Eloquent::unguard();
+        unset($forms['date']);
+        unset($forms['location']);
+        unset($forms['houseNo']);
+        $forms['house_no']=$this->houseNo;
+
+        $all = new InformationOnICT();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         $all  = new InformationOnICT($forms);
-        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         if($all->save()){
             $this->isSaved=true;
@@ -189,11 +207,12 @@ class SurveyFormsController extends Controller
         unset($forms['location']);
         $forms['head_id']=$this->headId;
         $forms['house_no']=$this->houseNo;
+        unset($forms['date']);
 
         Eloquent::unguard();
+        // $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         $all  = new PersonsWithDisabilities($forms);
-        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         if($all->save()){
             $this->isSaved=true;
@@ -205,11 +224,18 @@ class SurveyFormsController extends Controller
         /**
          * store form to DB
          */
+        unset($forms['date']);
+        unset($forms['location']);
+        unset($forms['houseNo']);
+        $forms['house_no']=$this->houseNo;
+
+        $all = new LabourForce();
+        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
 
         Eloquent::unguard();
-
+        unset($forms['date']);
         $all  = new LabourForce($forms);
-        $forms['occupant_no']= $this->addOccupantNo($all, $forms['head_id']);
+
 
         if($all->save()){
             $this->isSaved=true;
@@ -220,8 +246,17 @@ class SurveyFormsController extends Controller
         /**
          * store form to DB
          */
+        unset($forms['date']);
+        unset($forms['location']);
+        unset($forms['houseNo']);
+        unset($forms['occupant_no']);
+
+        $forms['house_no']=$this->houseNo;
+
+        $all = new HouseholdAssets();
         Eloquent::unguard();
 
+        unset($forms['date']);
 
         $all  = new HouseholdAssets($forms);
         if($all->save()){
@@ -232,7 +267,14 @@ class SurveyFormsController extends Controller
         /**
          * store form to DB
          */
+
+        unset($forms['date']);
+        unset($forms['location']);
+        unset($forms['houseNo']);
+        unset($forms['occupant_no']);
+        
         Eloquent::unguard();
+        unset($forms['date']);
 
 
         $all  = new HouseholdConditions($forms);
@@ -247,11 +289,12 @@ class SurveyFormsController extends Controller
          */
 
         $exists =$model->where('head_id', $headId)->first();
-        if ($exists){
+
+        if ($exists!=null){
             return $exists->occupant_no= $exists->occupant_no+1;
         }
         else{
-            return 1;
+            return "1";
         }
 
     }
@@ -319,7 +362,7 @@ class SurveyFormsController extends Controller
         $formStatus->date= $this->date;
         $formStatus->status=$status;
         $formStatus->location= $this->location;
-        $formStatus->enumerator_id= $user[0]->id;
+        $formStatus->enumerator_id= $user->id;
         $formStatus->time= date('h:m:s',time());
 
 

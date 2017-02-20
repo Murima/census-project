@@ -83,11 +83,11 @@ Route::get('official/form/form-status', 'FormStatus@index');
 Route::any('official/form/reject-form/{task_id}/{house_no}/{status_id}', 'FormStatus@rejectForm')->name('reject-form');
 Route::any('official/form/accept-form/{task_id}/{house_no}/{status_id}', 'FormStatus@acceptForm')->name('accept-form');
 
-Route::get('official/show-graphs/{category}', 'ChartController@index')->name('show-graphs');
 /*Route::get('official/show-graphs', 'ChartController@testChart');*/
-Route::get('official/show-graph', 'ChartController@genderDistribution');
+Route::get('official/show-graphs', 'ChartController@index')->name('show-graphs');
+Route::get('official/show-graph/{category?}/{variation?}', 'ChartController@chartCategory')->name('show-graph');
 
-Route::get('official/testme/{cat?}', function ($cat = null) {
-    return view('success');
-});
+//Route::get('official/testchart/', 'ChartController@testChart2');
+Route::get('official/testme/{typ?}', 'ChartController@testCat');
+
 //Route::get('official/testme/{cat?}', 'FormStatus@testMe')->name('testme');

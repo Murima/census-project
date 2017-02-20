@@ -26,11 +26,21 @@ class TasksController extends Controller {
         /**
          * get all the tasks for the enumerator
          */
+
         $user = User::where('email',$email)->get()->first();
 
         if($user){
 
             $tasks = TasksModel::where('enumerator_id',$user->id)->get();
+            foreach ($tasks as $task) {
+                //dd($task->id);
+
+                //get status from database
+                $status=FormStatusModel::where('task_id',$task->task_id)->first();
+                $task->post_status=$status->status;
+                $task->save();
+
+            }
 
             return response(json_encode($tasks));
 
@@ -40,14 +50,6 @@ class TasksController extends Controller {
         ]));
     }
 
-    public function getTaskStatus($email){
-        /**
-         * get status of task and return
-         */
-        $user = User::where('email',$email)->get()->first();
-
-
-    }
 
 
 }

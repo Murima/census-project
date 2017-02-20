@@ -170,6 +170,7 @@ return [
         Watson\BootstrapForm\BootstrapFormServiceProvider::class,
         Laravelista\Ekko\EkkoServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -241,7 +242,8 @@ return [
         'HTML'     => Collective\Html\HtmlFacade::class,
         'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
         'Ekko' => Laravelista\Ekko\Facades\Ekko::class,
-        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 
