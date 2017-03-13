@@ -22,5 +22,9 @@ Population Census Management system project to automate the counting process in 
 ### Manages submitted forms from the enumerators
 ![Alt text]( https://github.com/Murima/census-project/blob/master/reject-form.png
  "Reject Form")
+ 
+### Official can generate reports of the data submitted
+![Alt text](https://github.com/Murima/census-project/blob/master/generate-reports.png
+ "Generate Reports")
 
 
