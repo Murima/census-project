@@ -5,16 +5,22 @@ Population Census Management system project to automate the counting process in 
 3. official can generate reports
 
 ### Administrator Logs in and registers details of the census plus all actors in the system
-https://github.com/Murima/census-project/blob/master/assign-dash.png
+![Alt text](https://github.com/Murima/census-project/blob/master/admin-dash.png "Admin Dash") 
 #### registers actors
-https://github.com/Murima/census-project/blob/master/admin-reg.png
-
+![Alt text]( https://github.com/Murima/census-project/blob/master/admin-reg.png
+ "Admin Reg")
 ### Official logs in and gets their dashboard
-https://github.com/Murima/census-project/blob/master/official-dash.png
+![Alt text]( https://github.com/Murima/census-project/blob/master/official-dash.png
+ "Official Dash")
+
 
 ### Manages enumerators on the ground for example assigning and deleting tasks for enumerator
-https://github.com/Murima/census-project/blob/master/assign-dash.png
+![Alt text]( https://github.com/Murima/census-project/blob/master/assign-dash.png
+ "Assign Dash")
+
 
 ### Manages submitted forms from the enumerators
-https://github.com/Murima/census-project/blob/master/reject-form.png
+![Alt text]( https://github.com/Murima/census-project/blob/master/reject-form.png
+ "Reject Form")
+
 
