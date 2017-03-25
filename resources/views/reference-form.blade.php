@@ -51,12 +51,12 @@
 
                             </div>
                         @endif
-                            @if(Route::is('decline-form'))
-                                {{ Form::open(array('route' => array('decline-form',$submittedDetails->status_id), 'method'=>'put')) }}
-                            @else
-                                {{ Form::open(array('route' => array('accept-form',$submittedDetails->status_id), 'method'=>'put')) }}
+                        @if(Route::is('decline-form'))
+                            {{ Form::open(array('route' => array('decline-form',$submittedDetails->status_id), 'method'=>'put')) }}
+                        @else
+                            {{ Form::open(array('route' => array('confirm-form',$submittedDetails->status_id), 'method'=>'put')) }}
 
-                            @endif
+                        @endif
                         <div class="form-group row">
                             <label for="ward" class="col-sm-2 col-form-label">Ward</label>
                             <div class="col-sm-10">
@@ -118,4 +118,6 @@
                             {{Form::close()}}
                         </div>
                     </div>
+                </div>
+        </div>
 @endsection

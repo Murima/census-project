@@ -272,7 +272,7 @@ class SurveyFormsController extends Controller
         unset($forms['location']);
         unset($forms['houseNo']);
         unset($forms['occupant_no']);
-        
+
         Eloquent::unguard();
         unset($forms['date']);
 
@@ -316,11 +316,10 @@ class SurveyFormsController extends Controller
             ->where('enumerator_id', $id)->first();
 
 
-
-        if ($task) {
+        if ($task!=null) {
             //task is found
             $this->task_id = $task->task_id;
-            $task->stauts = 'closed';
+            $task->status = 'closed';
 
             $task->save();
 

@@ -13,12 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('password');
-            $table->string('email')->unique();
             $table->string('county');
             //only specific to enumerators
 
@@ -44,7 +38,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_table');
 
 
     }

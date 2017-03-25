@@ -28,7 +28,6 @@ class TasksController extends Controller {
          */
 
         $user = User::where('email',$email)->get()->first();
-
         if($user){
 
             $tasks = TasksModel::where('enumerator_id',$user->id)->get();
@@ -37,7 +36,14 @@ class TasksController extends Controller {
 
                 //get status from database
                 $status=FormStatusModel::where('task_id',$task->task_id)->first();
-                $task->post_status=$status->status;
+
+                if ($status!=null){
+                    $task->post_status=$status->status;
+                }
+                else{
+                    $task->post_status= "Open";
+                }
+
                 $task->save();
 
             }

@@ -83,19 +83,6 @@ class DashboardController extends Controller
             $formStatus= FormStatusModel::where('status_id', $status_id)->get()->first();
             $formStatus->status="Rejected";
 
-            $formStatus->save();
-
-            $this->deleteReference($status_id);
-            return $this->index();
-        }
-
-        $submittedDetails= FormStatusModel::where('status_id', $status_id)->get()->first();
-        $ward = User::find($submittedDetails->enumerator_id)->ward;
-        $assignedDetails = TasksModel::find($submittedDetails->task_id);
-
-
-        return view('reference-form')->withWard($ward)
-            ->with('submittedDetails', $submittedDetails)
             ->with('assignedDetails', $assignedDetails);
     }
 

@@ -223,11 +223,11 @@ desired effect
                             <input class="form-control" name="phoneno" type="text" id="phoneno" value="{{$user->phone_number}}">
 
                         </div>
-                        <div class="form-group" {{ $errors->has('ward') ? 'has-error':'' }}>
+                        {{--<div class="form-group" {{ $errors->has('ward') ? 'has-error':'' }}>
                             <label for="ward"> Ward</label>
                             <input class="form-control" name="ward" type="text" id="ward" value="{{$user->ward}}">
 
-                        </div>
+                        </div>--}}
                         @if($user->is_enumerator)
                             <div class="form-group"  {{ $errors->has('phone_number') ? 'has-error':'' }}>
                                 <label for="county"> Phone Number </label>

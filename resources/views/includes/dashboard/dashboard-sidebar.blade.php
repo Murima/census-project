@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="assets/img/admin-img.jpg" class="img-circle" alt="User Image">
+                <img src="assets/img/admin.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Murima</p>

@@ -60,7 +60,8 @@ class UserController extends Controller
             );
 
             $user = User::where('email',$request->get('email'))->first();
-            if($user->is_admin == 1) {
+
+            if($user!=null && $user->is_admin == 1) {
                 if (\Auth::attempt($credentials)) {
                     return redirect()->route('dashboard');
 
@@ -68,7 +69,7 @@ class UserController extends Controller
 
             }
 
-            elseif($user->is_official == 1) {
+            elseif($user!=null && $user->is_official == 1) {
                 if (\Auth::attempt($credentials)) {
                     return redirect()->route('dashboard-official');
                 }
@@ -92,23 +93,6 @@ class UserController extends Controller
 
     }
 
-    public function signUpOfficial (Request $request)
-    {
-        if ($request->isMethod('post'))
-        {
-            $this->validate($request, [
-                'firstname'=> 'required',
-                'lastname'=> 'required',
-                'email'=> 'required|unique:users',
-                'id'=> 'unique:users|min:6',
-                'password'=> 'required'
-
-            ]);
-
-            $firstname = $request['firstname'];
-            $lastname = $request['lastname'];
-            $id = $request['ID'];
-            $email = $request['email'];
             $password = bcrypt($request['password']);
             $county = $request['county'];
             $phoneno = $request['phoneno'];
@@ -235,19 +219,6 @@ class UserController extends Controller
 
             ]);
 
-            $firstname = $request['firstname'];
-            $lastname = $request['lastname'];
-            $id = $request['ID'];
-            $email = $request['email'];
-            $password = bcrypt($request['password']);
-            $county = $request['county'];
-            $phoneno = $request['phoneno'];
-            $ward = $request->get('ward');
-
-            $file = $request->file('image');
-            $filename = $request['firstname'].'-'.$request['ID'].'.jpg';
-
-            if ($file)
             {
                 Storage::disk('local')->put($filename, File::get($file));
             }

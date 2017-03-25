@@ -59,7 +59,8 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>KNBS</h1>
-                <h2>We Create Cool Stuff</h2>
+                <h2>Nipo Natambulika!</h2>
+                <h3>Keeping you informed</h3>
                 <div class="spacer"></div>
                 <i class="fa fa-angle-down"></i>
             </div>
@@ -71,8 +72,17 @@
 <div class="container">
     <div class="row mt">
         <div class="col-lg-8">
-            <h1>We build websites & apps that people love!</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+            <h1>Collecting information for the implementation of vision 2030</h1>
+            <p>Through the Statistics Act 2006 the constitution mandates the Kenya National Bureau of Statistics to:</p>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">Act as the principal agency of the government for collecting, analysing and disseminating statistical data in Kenya</li>
+                <li class="list-group-item">Act as custodian of official statistics.</li>
+                <li class="list-group-item">Conduct the Population and Housing Census every ten years, and such other censuses and surveys as the Board may determine </li>
+                <li class="list-group-item">Maintain a comprehensive and reliable national socio-economic database</li>
+                <li class="list-group-item">Establish standards and promote the use of best practices and methods in the production and dissemination of statistical information across the NSS</li>
+                <li class="list-group-item">Plan, authorise, coordinate and supervise all official statistical programmes undertaken within the national statistical system</li>
+
+            </ul>
         </div>
         <div class="col-lg-4">
             <p class="pull-right"><br><button type="button" class="btn btn-green">View recent report graphs</button></p>
@@ -119,13 +129,21 @@
 <div class="container">
     <div class="row mt">
         <div class="col-lg-12">
-            <h1>Recent Posts</h1>
+            <h1>Vision Statement</h1>
         </div><!-- col-lg-12 -->
         <div class="col-lg-8">
-            <p>Our latests thoughts about things that only matters to us.</p>
+            <h3>Our vision statement is</h3>
+            <p>To be a centre of excellence in production and management of quality statistics</p>
+
+            <h3>Mission Statement</h3>
+            <p>To develop, provide and promote quality statistical information for evidence-based decision making</p>
+            <ul>
+
+            </ul>
+
         </div><!-- col-lg-8-->
         <div class="col-lg-4 goright">
-            <p><a href="#"><i class="fa fa-angle-right"></i> See All Posts</a></p>
+            <p><a href="#"><i class="fa fa-angle-right"></i> See All core values</a></p>
         </div>
     </div><!-- row -->
 
